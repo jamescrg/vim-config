@@ -8,6 +8,8 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'junegunn/seoul256.vim'
+Plug 'blueshirts/darcula'
+
 Plug 'vim-scripts/vim-auto-save'
 Plug 'StanAngeloff/php.vim'
 Plug 'scrooloose/nerdcommenter'
@@ -15,6 +17,7 @@ Plug 'qpkorr/vim-bufkill'
 Plug 'tpope/vim-vinegar'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'ludovicchabant/vim-gutentags'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'vim-airline/vim-airline'
@@ -38,7 +41,7 @@ set t_Co=256
 " seoul256 light scheme
 " 252 darkest - 256 lightest
 colorscheme seoul256-light 
-let g:seoul256_background = 252
+let g:seoul256_background = 254
 
 " seoul256 dark scheme
 " 233 darkest - 239 lightest
@@ -46,9 +49,9 @@ let g:seoul256_background = 252
 "let g:seoul256_background = 237
 
 " set airline color and options
-let g:airline_theme='papercolor'
+let g:airline_theme='zenburn'
 let g:airline#extensions#tabline#enabled = 1
-autocmd VimEnter * AirlineToggleWhitespace
+"autocmd VimEnter * AirlineToggleWhitespace
 
 
 " ----------------------------------------------------------------------------
@@ -65,7 +68,7 @@ let g:vim_markdown_toc_autofit = 1
 
 " set relativenumber
 " set rnu
-set nonumber
+"set nonumber
 
 
 " ----------------------------------------------------------------------------
@@ -99,7 +102,6 @@ set wrap
 
 "search highlighting
 :set hlsearch
-:nnoremap <cr> :nohlsearch<CR><CR>
 
 
 " ----------------------------------------------------------------------------
@@ -134,8 +136,17 @@ set splitright
 " leader
 :let mapleader = ","
 
+"make C-arrow keys work normally in putty
+"  -- esc
+" [D -- left arrow
+" [C -- right arrow
+map [D <C-left>
+map! [D <C-left>
+map [C <C-right>
+map! [C <C-right>
+
 " clear search highlighting
-" nmap <Leader>h :set hlsearch!<CR>
+:nnoremap <cr> :nohlsearch<CR><CR>
 
 " enter writing mode
 nmap <Leader>g :Goyo 120<cr>
@@ -157,8 +168,8 @@ nmap <F12> :q<cr>
 imap <F12> <esc>:q<cr> 
 
 " markdown
-nmap <Leader>to :Toc<cr>
-nmap <Leader>tc <C-w>l <bar> :bd<cr>
+nmap <Leader>mt :Toc<cr>
+nmap <Leader>mc <C-w>l <bar> :bd<cr>
 
 " change between buffers
 map <F3> :bprevious<CR>
@@ -170,10 +181,8 @@ nmap <Leader>so :source $MYVIMRC<cr>
 
 " access to fzf
 nmap <Leader>f :FZF <cr>
+nmap <Leader>t :Tags<cr>
 nmap <Leader>b :Buffers <cr>
-
-" switch on spell check
-nmap <Leader>ss :set spell<cr>
 
 " insert current date as markdown heading 2
 iab icd ## <c-r>=strftime('%Y-%m-%d')<cr>
@@ -188,7 +197,7 @@ nmap <silent> <Up> gk
 nnoremap <S-Tab> <C-d>
 inoremap <S-Tab> <C-d>
 
-"save, search and replace
+"search and replace
 nmap <C-f> :%s/
 
 " use ctrl keys to change between splits
