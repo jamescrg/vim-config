@@ -51,7 +51,7 @@ let g:seoul256_background = 254
 " set airline color and options
 let g:airline_theme='zenburn'
 let g:airline#extensions#tabline#enabled = 1
-"autocmd VimEnter * AirlineToggleWhitespace
+autocmd VimEnter * silent AirlineToggleWhitespace
 
 
 " ----------------------------------------------------------------------------
