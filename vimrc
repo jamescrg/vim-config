@@ -6,29 +6,22 @@
 
 call plug#begin('~/.vim/plugged')
 
-" color schemes
-Plug 'NLKNguyen/papercolor-theme'
+" color scheme
 Plug 'junegunn/seoul256.vim'
-Plug 'blueshirts/darcula'
-Plug 'chuling/vim-equinusocio-material'
 
 " behavior/interface
 Plug 'vim-scripts/vim-auto-save'
 Plug 'tpope/vim-commentary'
-Plug 'qpkorr/vim-bufkill'
 Plug 'tpope/vim-vinegar'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'ludovicchabant/vim-gutentags'
 
 " languages
 Plug 'StanAngeloff/php.vim'
-
-" markdown
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 
-" writing
+" prose
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
@@ -46,37 +39,24 @@ call plug#end()
 syntax enable
 
 " allow vim to use 256 colors instead of smaller color set provded by 
-" the terminal by default (putty / xterm)
 set t_Co=256
 
-" seoul256 light scheme
-" 252 darkest - 256 lightest
-colorscheme seoul256-light 
-let g:seoul256_background = 254
-let g:airline_theme='zenburn'
-
-" seoul256 dark theme
-"set background=dark
-"colorscheme seoul256 
-"let g:seoul256_background = 237
+ " seoul256 light scheme
+ " 252 darkest - 256 lightest
+ colorscheme seoul256-light 
+ let g:seoul256_background = 254
+ let g:airline_theme='zenburn'
 
 
-" ----------------------------------------------------------------------------
-" Airline
-" ----------------------------------------------------------------------------
+ " ----------------------------------------------------------------------------
+ " Airline
+ " ----------------------------------------------------------------------------
 
-" let g:airline#extensions#tabline#enabled = 1
-autocmd VimEnter * silent AirlineToggleWhitespace
+ let g:airline#extensions#tabline#enabled = 1
+ autocmd VimEnter * silent AirlineToggleWhitespace
 
-"set laststatus=2
-"set statusline+=%{wordcount().words}\ words
-
-" ----------------------------------------------------------------------------
-" Markdown
-" ----------------------------------------------------------------------------
-
-let g:vim_markdown_folding_disabled = 1
-let g:vim_markdown_toc_autofit = 1
+set laststatus=2
+set statusline+=%{wordcount().words}\ words
 
 
 " ----------------------------------------------------------------------------
@@ -87,10 +67,14 @@ let g:vim_markdown_toc_autofit = 1
 set noswapfile
 
 " incremental search
-set incsearch
+" set incsearch
+set ignorecase   " Case insensitive search
+set smartcase    " Case sensitive only if search contains uppercase letter.
 
-" smart case searching (ucase sensitive, lcase insensitive)
-" set smartcase
+" markdown behavior
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_toc_autofit = 1
+
 
 " ----------------------------------------------------------------------------
 " Autosave
@@ -112,24 +96,20 @@ set mouse=a
 " Appearance
 " ----------------------------------------------------------------------------
 
-"visually indicate insert mode
-":autocmd InsertEnter,InsertLeave * set cul!
-
 "always show line numbers
 set number
-
-" use relative numbers
-" set relativenumber
-
-"hide line numbers
-"set nonumber
 
 "wrap lines
 set wrap
 
 "search highlighting
-":set hlsearch
-:set nohlsearch
+set nohlsearch
+
+" break at whitespace not words
+set linebreak
+
+" show partial lines at the bottom of the screen
+set display=lastline
 
 
 " ----------------------------------------------------------------------------
@@ -145,9 +125,6 @@ set expandtab
 " backspace
 set backspace=indent,eol,start
 
-" line breaks
-set linebreak
-
 
 " ----------------------------------------------------------------------------
 " Window Management
@@ -162,79 +139,53 @@ set splitright
 " ----------------------------------------------------------------------------
 
 " leader
-:let mapleader = ","
-
-" access to fzf
-nnoremap <Leader>f :FZF<cr>
-nnoremap <Leader>t :Tags<cr>
-nnoremap <Leader>w :Buffers<cr>
-
-" easy esc to control mode
+:let mapleader = " "
+          
+" easy esc to command mode
 inoremap kk <Esc>
-inoremap kf <Esc>
 inoremap jj <Esc>
-inoremap jf <Esc>
+inoremap kj <Esc>
+inoremap jk <Esc>
 
-" j and k by lines on screen, as with modern editors
+" j and k by lines on screen
 nnoremap j gj
 nnoremap k gk
+vnoremap j gj
+vnoremap k gk
 
-" use ctrl keys to navigate splits
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-h> <C-w>h
-nnoremap <C-l> <C-w>l
-nnoremap <C-c> :close<cr>
+" access to fzf
+nnoremap <leader>f :FZF<cr>
+nnoremap <leader>t :Tags<cr>
+nnoremap <nowait> <leader>b :Buffers<cr>
 
+" minimalist writing mode
+nnoremap <leader>go :Goyo 120<cr>
+nnoremap <leader>gc :Goyo!<cr>
 
-"make C-arrow keys work normally in putty
-"  -- esc
-" [D -- left arrow
-" [C -- right arrow
-map [D <C-left>
-map! [D <C-left>
-map [C <C-right>
-map! [C <C-right>
+" toggle spell check
+nnoremap <leader>ss :set spell!<cr>
 
-" facilitate moving through wrapped lines
-inoremap <silent> <Down> <C-o>gj
-inoremap <silent> <Up> <C-o>gk
-nnoremap <silent> <Down> gj
-nnoremap <silent> <Up> gk
-
-" clear search highlighting
-:nnoremap <cr> :nohlsearch<CR><CR>
-
-" enter writing mode
-nnoremap <Leader>go :Goyo 120<cr>
-nnoremap <Leader>gc :Goyo!<cr>
-
-" turn on spell check
-nnoremap <Leader>ss :set spell!<cr>
-
-" shortcut to close vim
-nnoremap <F9> :bd<cr>
-nnoremap <F12> :q<cr> 
-inoremap <F12> <esc>:q<cr> 
-
-" markdown
-nnoremap <Leader>mt :Toc<cr>
-nnoremap <Leader>mc <C-w>h :bd<cr>
+" close buffers and vim
+nnoremap <leader>d :bd<cr>
+nnoremap <leader>D :bd!<cr>
+nnoremap <leader>q :q<cr> 
+nnoremap <leader>Q :q!<cr> 
 
 " change between buffers
-map <F3> :bprevious<CR>
-map <F4> :bnext<CR>
+nnoremap ]b :bnext<cr>
+nnoremap [b :bprev<cr>
+
+" markdown toc
+nnoremap <leader>mt :Toc<cr>
+nnoremap <leader>mc <C-w>h :bd<cr>
 
 " make it easy to edit the .vimrc file
-nnoremap <Leader>ev :e ~/.vim/vimrc<cr>
-nnoremap <Leader>so :source $MYVIMRC<cr>
+nnoremap <leader>ev :e ~/.vim/vimrc<cr>
+nnoremap <leader>so :source $MYVIMRC<cr>
 
 " insert current date as markdown heading 2
-iab icd ## <c-r>=strftime('%Y-%m-%d')<cr>
+iab icd *<c-r>=strftime('%Y-%m-%d')<cr>*
 
 " shift tab removes indent
 nnoremap <S-Tab> <C-d>
 inoremap <S-Tab> <C-d>
-
-"search and replace
-nnoremap <C-f> :%s/
