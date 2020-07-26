@@ -39,6 +39,7 @@ call plug#end()
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='zenburn'
+autocmd VimEnter * silent AirlineToggleWhitespace
 
 
 " ----------------------------------------------------------------------------
@@ -123,6 +124,12 @@ set display=lastline
 
 " leader
 :let mapleader = " "
+
+" handle open buffers
+noremap <F3> :bp<cr>
+noremap <F4> :bn<cr>
+noremap <F9> :bd<cr>
+noremap <F12> :q!<cr>
           
 " easy esc to command mode
 inoremap kk <Esc>
