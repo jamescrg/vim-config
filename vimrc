@@ -11,11 +11,14 @@ Plug 'junegunn/seoul256.vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'morhetz/gruvbox'
 
+" interface
 Plug 'vim-scripts/vim-auto-save'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-vinegar'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 " languages
 Plug 'StanAngeloff/php.vim'
@@ -26,20 +29,14 @@ Plug 'plasticboy/vim-markdown'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
-" airline
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-
 call plug#end()
-
 
 " ----------------------------------------------------------------------------
 " Airline
 " ----------------------------------------------------------------------------
 
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='zenburn'
 autocmd VimEnter * silent AirlineToggleWhitespace
+let g:airline_theme='zenburn'
 
 
 " ----------------------------------------------------------------------------
@@ -54,11 +51,8 @@ syntax enable
 
 " seoul256 light scheme
 " 252 darkest - 256 lightest
- colorscheme seoul256-light
- let g:seoul256_background = 256
-
-" colorscheme gruvbox
-" set background=dark
+colorscheme seoul256-light
+let g:seoul256_background = 256
 
 
 " ----------------------------------------------------------------------------
@@ -143,11 +137,17 @@ nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 
-" C-j and C-k by lines 
+" S-j and S-k by lines 
 nnoremap <S-j> j
 nnoremap <S-k> k
 vnoremap <S-j> j
 vnoremap <S-k> k
+
+" C-direction to nav splits
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 " shift tab removes indent
 nnoremap <S-Tab> <C-d>
