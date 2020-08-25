@@ -111,6 +111,9 @@ set linebreak
 " show partial lines at the bottom of the screen
 set display=lastline
 
+" eliminate delay leaving insert mode
+set ttimeoutlen=50
+
 
 " ----------------------------------------------------------------------------
 " Mappings
