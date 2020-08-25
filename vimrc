@@ -117,7 +117,7 @@ set display=lastline
 " ----------------------------------------------------------------------------
 
 " leader
-:let mapleader = " "
+let mapleader = " "
 
 " handle open buffers
 noremap <F3> :bp<cr>
@@ -126,7 +126,6 @@ noremap <F9> :bd<cr>
 noremap <F12> :q!<cr>
           
 " easy esc to command mode
-inoremap kk <Esc>
 inoremap jj <Esc>
 inoremap kj <Esc>
 inoremap jk <Esc>
@@ -169,5 +168,4 @@ nnoremap <leader>sw :set wrap!<cr>
 
 " insert text
 iab icd *<c-r>=strftime('%Y-%m-%d')<cr>*
-iab tnh Thich Nhat Hanh
 
