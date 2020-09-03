@@ -10,6 +10,13 @@ call plug#begin('~/.vim/plugged')
 Plug 'junegunn/seoul256.vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'morhetz/gruvbox'
+Plug 'therubymug/vim-pyte'
+Plug 'vim-scripts/oceanlight'
+Plug 'altercation/vim-colors-solarized'
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'blueshirts/darcula'
+Plug 'tomasr/molokai'
+Plug 'arcticicestudio/nord-vim'
 
 " interface
 Plug 'vim-scripts/vim-auto-save'
@@ -29,6 +36,8 @@ Plug 'plasticboy/vim-markdown'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
+Plug 'mattn/calendar-vim'
+
 call plug#end()
 
 " ----------------------------------------------------------------------------
@@ -46,13 +55,30 @@ let g:airline_theme='zenburn'
 " allow sytax highlightking
 syntax enable
 
-" allow vim to use 256 colors instead of smaller color set provded by 
+" change color pallette
 " set t_Co=256
+" set termguicolors
 
-" seoul256 light scheme
-" 252 darkest - 256 lightest
-colorscheme seoul256-light
-let g:seoul256_background = 256
+" seoul256 colors
+" light: 252 darkest - 256 lightest
+" dark: 233 darkest - 239 lightest
+
+" let g:seoul256_background = 252
+" colorscheme seoul256-light
+
+let g:seoul256_srgb = 1
+let g:seoul256_background = 237
+colorscheme seoul256
+
+" let g:gruvbox_contrast_dark = 'soft'
+" set background=dark
+" colorscheme gruvbox
+
+" set background=dark
+" colorscheme solarized
+
+" set background=dark
+" colorscheme molokai
 
 
 " ----------------------------------------------------------------------------
@@ -65,14 +91,13 @@ set mouse=a
 " no swap files
 set noswapfile
 
-" case insensitive search
-set ignorecase 
-
-" case sensitive only if search contains uppercase letter
+" search
 set smartcase    
+set incsearch
 
-" open splits on the right
+" open splits on the right and bottom
 set splitright
+set splitbelow
 
 " markdown behavior
 let g:vim_markdown_folding_disabled = 1
@@ -102,9 +127,6 @@ set number
 "wrap lines
 set wrap
 
-"search highlighting
-set nohlsearch
-
 " break at whitespace not words
 set linebreak
 
@@ -129,9 +151,9 @@ noremap <F9> :bd<cr>
 noremap <F12> :q!<cr>
           
 " easy esc to command mode
-inoremap jj <Esc>
-inoremap kj <Esc>
-inoremap jk <Esc>
+" inoremap jj <Esc>
+" inoremap kj <Esc>
+" inoremap jk <Esc>
 
 " j and k by lines on screen
 nnoremap j gj
@@ -139,29 +161,36 @@ nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 
-" S-j and S-k by lines 
-nnoremap <S-j> j
-nnoremap <S-k> k
-vnoremap <S-j> j
-vnoremap <S-k> k
+" C-j and C-k by lines 
+nnoremap <C-j> j
+nnoremap <C-k> k
+vnoremap <C-j> j
+vnoremap <C-k> k
 
 " C-direction to nav splits
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+nnoremap <S-h> <C-w>h
+nnoremap <S-j> <C-w>j
+nnoremap <S-k> <C-w>k
+nnoremap <S-l> <C-w>l
 
-" shift tab removes indent
-nnoremap <S-Tab> <C-d>
-inoremap <S-Tab> <C-d>
+" easy past from register 0
+nnoremap <leader>p "0p
 
 " access to fzf
 nnoremap <leader>f :FZF<cr>
 nnoremap <leader>t :Tags<cr>
 nnoremap <nowait> <leader>b :Buffers<cr>
 
+" writing
+nnoremap <leader>g :Goyo 120<cr>
+nnoremap <leader>c :Toc<cr>
+
+" easy search and replace
+nnoremap <leader>r :%s//gc<left><left><left>
+
 " edit the .vimrc file
 nnoremap <leader>ev :e ~/.vim/vimrc<cr>
+nnoremap <leader>so :so %<cr>
 
 " toggle spell check
 nnoremap <leader>ss :set spell!<cr>
@@ -171,4 +200,3 @@ nnoremap <leader>sw :set wrap!<cr>
 
 " insert text
 iab icd *<c-r>=strftime('%Y-%m-%d')<cr>*
-
