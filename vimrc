@@ -17,6 +17,9 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'blueshirts/darcula'
 Plug 'tomasr/molokai'
 Plug 'arcticicestudio/nord-vim'
+Plug 'rakr/vim-one'
+Plug 'sainnhe/vim-color-forest-night'
+Plug 'joshdick/onedark.vim'
 
 " interface
 Plug 'vim-scripts/vim-auto-save'
@@ -40,6 +43,7 @@ Plug 'mattn/calendar-vim'
 
 call plug#end()
 
+
 " ----------------------------------------------------------------------------
 " Airline
 " ----------------------------------------------------------------------------
@@ -57,7 +61,7 @@ syntax enable
 
 " change color pallette
 " set t_Co=256
-" set termguicolors
+set termguicolors
 
 " seoul256 colors
 " light: 252 darkest - 256 lightest
@@ -66,20 +70,11 @@ syntax enable
 " let g:seoul256_background = 252
 " colorscheme seoul256-light
 
-let g:seoul256_srgb = 1
-let g:seoul256_background = 237
-colorscheme seoul256
+" let g:seoul256_srgb = 1
+" let g:seoul256_background = 235
+" colorscheme seoul256
 
-" let g:gruvbox_contrast_dark = 'soft'
-" set background=dark
-" colorscheme gruvbox
-
-" set background=dark
-" colorscheme solarized
-
-" set background=dark
-" colorscheme molokai
-
+colorscheme onedark
 
 " ----------------------------------------------------------------------------
 " Behavior
