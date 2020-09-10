@@ -20,6 +20,7 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'rakr/vim-one'
 Plug 'sainnhe/vim-color-forest-night'
 Plug 'joshdick/onedark.vim'
+Plug 'sainnhe/forest-night'
 
 " interface
 Plug 'vim-scripts/vim-auto-save'
@@ -74,7 +75,7 @@ set termguicolors
 " let g:seoul256_background = 235
 " colorscheme seoul256
 
-colorscheme onedark
+colorscheme forest-night
 
 " ----------------------------------------------------------------------------
 " Behavior
@@ -139,12 +140,6 @@ set ttimeoutlen=50
 " leader
 let mapleader = " "
 
-" handle open buffers
-noremap <F3> :bp<cr>
-noremap <F4> :bn<cr>
-noremap <F9> :bd<cr>
-noremap <F12> :q!<cr>
-          
 " easy esc to command mode
 " inoremap jj <Esc>
 " inoremap kj <Esc>
@@ -163,10 +158,18 @@ vnoremap <C-j> j
 vnoremap <C-k> k
 
 " C-direction to nav splits
-nnoremap <S-h> <C-w>h
-nnoremap <S-j> <C-w>j
-nnoremap <S-k> <C-w>k
-nnoremap <S-l> <C-w>l
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" S-direction to nav buffers
+nnoremap <S-h> :bp<cr>
+nnoremap <S-l> :bn<cr>
+nnoremap <S-k> <C-^>
+
+" Close buffers
+nnoremap <leader>d :bd<cr>
 
 " easy past from register 0
 nnoremap <leader>p "0p
@@ -177,7 +180,7 @@ nnoremap <leader>t :Tags<cr>
 nnoremap <nowait> <leader>b :Buffers<cr>
 
 " writing
-nnoremap <leader>g :Goyo 120<cr>
+nnoremap <leader>g :Goyo<cr>
 nnoremap <leader>c :Toc<cr>
 
 " easy search and replace
