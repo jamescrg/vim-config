@@ -30,6 +30,7 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'junegunn/vim-peekaboo'
 
 " languages
 Plug 'StanAngeloff/php.vim'
