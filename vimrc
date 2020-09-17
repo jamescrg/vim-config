@@ -8,18 +8,6 @@ call plug#begin('~/.vim/plugged')
 
 " color schemes
 Plug 'junegunn/seoul256.vim'
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'morhetz/gruvbox'
-Plug 'therubymug/vim-pyte'
-Plug 'vim-scripts/oceanlight'
-Plug 'altercation/vim-colors-solarized'
-Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'blueshirts/darcula'
-Plug 'tomasr/molokai'
-Plug 'arcticicestudio/nord-vim'
-Plug 'rakr/vim-one'
-Plug 'sainnhe/vim-color-forest-night'
-Plug 'joshdick/onedark.vim'
 Plug 'sainnhe/forest-night'
 
 " interface
@@ -152,11 +140,11 @@ nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 
-" C-j and C-k by lines 
-nnoremap <C-j> j
-nnoremap <C-k> k
-vnoremap <C-j> j
-vnoremap <C-k> k
+" S-j and S-k by lines 
+nnoremap <S-j> j
+nnoremap <S-k> k
+vnoremap <S-j> j
+vnoremap <S-k> k
 
 " C-direction to nav splits
 nnoremap <C-h> <C-w>h
@@ -167,7 +155,6 @@ nnoremap <C-l> <C-w>l
 " S-direction to nav buffers
 nnoremap <S-h> :bp<cr>
 nnoremap <S-l> :bn<cr>
-nnoremap <S-k> <C-^>
 
 " Close buffers
 nnoremap <leader>d :bd<cr>
