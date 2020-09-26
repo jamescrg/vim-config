@@ -140,24 +140,20 @@ nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 
-" S-j and S-k by lines 
-nnoremap <S-j> j
-nnoremap <S-k> k
-vnoremap <S-j> j
-vnoremap <S-k> k
-
-" C-direction to nav splits
+" S-direction to nav splits
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-" S-direction to nav buffers
+" C-direction to nav buffers
 nnoremap <S-h> :bp<cr>
 nnoremap <S-l> :bn<cr>
+nnoremap <S-k> <C-^>
 
 " Close buffers
 nnoremap <leader>d :bd<cr>
+nnoremap <leader>q :q<cr> 
 
 " easy past from register 0
 nnoremap <leader>p "0p
