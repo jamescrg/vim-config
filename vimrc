@@ -53,17 +53,6 @@ syntax enable
 " set t_Co=256
 set termguicolors
 
-" seoul256 colors
-" light: 252 darkest - 256 lightest
-" dark: 233 darkest - 239 lightest
-
-" let g:seoul256_background = 252
-" colorscheme seoul256-light
-
-" let g:seoul256_srgb = 1
-" let g:seoul256_background = 235
-" colorscheme seoul256
-
 colorscheme forest-night
 
 " ----------------------------------------------------------------------------
@@ -129,34 +118,17 @@ set ttimeoutlen=50
 " leader
 let mapleader = " "
 
-" easy esc to command mode
-" inoremap jj <Esc>
-" inoremap kj <Esc>
-" inoremap jk <Esc>
-
 " j and k by lines on screen
 nnoremap j gj
 nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 
-" S-direction to nav splits
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-
-" C-direction to nav buffers
+" S-direction to nav buffers
 nnoremap <S-h> :bp<cr>
 nnoremap <S-l> :bn<cr>
 nnoremap <S-k> <C-^>
-
-" Close buffers
-nnoremap <leader>d :bd<cr>
-nnoremap <leader>q :q<cr> 
-
-" easy past from register 0
-nnoremap <leader>p "0p
+nnoremap <S-d> :bd<cr>
 
 " access to fzf
 nnoremap <leader>f :FZF<cr>
@@ -181,4 +153,4 @@ nnoremap <leader>ss :set spell!<cr>
 nnoremap <leader>sw :set wrap!<cr>
 
 " insert text
-iab icd *<c-r>=strftime('%Y-%m-%d')<cr>*
+iab icd ## <c-r>=strftime('%Y-%m-%d')<cr>
