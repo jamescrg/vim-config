@@ -90,6 +90,8 @@ set expandtab
 " backspace
 set backspace=indent,eol,start
 
+" disable fzf preview window
+let g:fzf_preview_window = ''
 
 " ----------------------------------------------------------------------------
 " Appearance
