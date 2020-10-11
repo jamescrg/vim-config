@@ -124,13 +124,22 @@ nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 
-" S-direction to nav buffers
-nnoremap <S-h> :bp<cr>
-nnoremap <S-l> :bn<cr>
-nnoremap <S-k> <C-^>
-nnoremap <S-d> :bd<cr>
+" navigating splits
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
-" access to fzf
+"navigating buffers
+nnoremap <S-h> :bp<cr>
+nnoremap <S-j> <C-^>
+nnoremap <S-k> :bd<cr>
+nnoremap <S-l> :bn<cr>
+
+" moving in a line
+nnoremap s F
+
+" fzf searches
 nnoremap <leader>f :FZF<cr>
 nnoremap <leader>t :Tags<cr>
 nnoremap <nowait> <leader>b :Buffers<cr>
