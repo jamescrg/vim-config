@@ -126,6 +126,12 @@ nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 
+" buffer navigation
+nnoremap <S-h> :bp<cr>
+nnoremap <S-j> <C-^>
+nnoremap <S-l> :bn<cr>
+nnoremap <S-k> :bd<cr>
+
 " fzf searches
 nnoremap <leader>f :FZF<cr>
 nnoremap <leader>t :Tags<cr>
