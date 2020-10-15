@@ -132,6 +132,10 @@ nnoremap <S-j> <C-^>
 nnoremap <S-l> :bn<cr>
 nnoremap <S-k> :bd<cr>
 
+" window navigation
+nnoremap <leader>ww <C-w><C-w>
+nnoremap <leader>wc <C-w>c
+
 " fzf searches
 nnoremap <leader>f :FZF<cr>
 nnoremap <leader>t :Tags<cr>
