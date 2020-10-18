@@ -9,6 +9,7 @@ call plug#begin('~/.vim/plugged')
 " color schemes
 Plug 'junegunn/seoul256.vim'
 Plug 'sainnhe/forest-night'
+Plug 'morhetz/gruvbox'
 
 " interface
 Plug 'vim-scripts/vim-auto-save'
@@ -39,7 +40,7 @@ call plug#end()
 " ----------------------------------------------------------------------------
 
 autocmd VimEnter * silent AirlineToggleWhitespace
-let g:airline_theme='zenburn'
+" let g:airline_theme='zenburn'
 
 
 " ----------------------------------------------------------------------------
@@ -54,6 +55,7 @@ syntax enable
 set termguicolors
 
 colorscheme forest-night
+
 
 " ----------------------------------------------------------------------------
 " Behavior
@@ -93,6 +95,7 @@ set backspace=indent,eol,start
 " disable fzf preview window
 let g:fzf_preview_window = ''
 
+
 " ----------------------------------------------------------------------------
 " Appearance
 " ----------------------------------------------------------------------------
@@ -127,14 +130,9 @@ vnoremap j gj
 vnoremap k gk
 
 " buffer navigation
-nnoremap <S-h> :bp<cr>
-nnoremap <S-j> <C-^>
-nnoremap <S-l> :bn<cr>
+nnoremap <S-h> :bprev<cr>
+nnoremap <S-j> :bnext<cr>
 nnoremap <S-k> :bd<cr>
-
-" window navigation
-nnoremap <leader>ww <C-w><C-w>
-nnoremap <leader>wc <C-w>c
 
 " fzf searches
 nnoremap <leader>f :FZF<cr>
@@ -143,7 +141,7 @@ nnoremap <nowait> <leader>b :Buffers<cr>
 
 " writing
 nnoremap <leader>g :Goyo<cr>
-nnoremap <leader>c :Toc<cr>
+nnoremap <leader>T :Toc<cr>
 
 " easy search and replace
 nnoremap <leader>r :%s//gc<left><left><left>
