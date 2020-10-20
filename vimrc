@@ -130,9 +130,15 @@ vnoremap j gj
 vnoremap k gk
 
 " buffer navigation
-nnoremap <S-h> :bprev<cr>
+nnoremap <S-k> :bprev<cr>
 nnoremap <S-j> :bnext<cr>
-nnoremap <S-k> :bd<cr>
+nnoremap <leader>d :bd<cr>
+
+" window navigation
+nnoremap <leader>w <C-w>
+
+" quitting terminal
+tnoremap <Esc> <C-\><C-n>:q!<cr>
 
 " fzf searches
 nnoremap <leader>f :FZF<cr>
