@@ -130,9 +130,10 @@ vnoremap j gj
 vnoremap k gk
 
 " buffer navigation
-nnoremap <S-k> :bprev<cr>
-nnoremap <S-j> :bnext<cr>
-nnoremap <leader>d :bd<cr>
+nnoremap <S-h> :bprev<cr>
+nnoremap <S-l> :bnext<cr>
+nnoremap <S-j> <C-^>
+nnoremap <S-k> :bd<cr>
 
 " window navigation
 nnoremap <leader>w <C-w>
