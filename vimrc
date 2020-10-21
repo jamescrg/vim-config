@@ -130,13 +130,9 @@ vnoremap j gj
 vnoremap k gk
 
 " buffer navigation
-nnoremap <S-h> :bprev<cr>
-nnoremap <S-l> :bnext<cr>
-nnoremap <S-j> <C-^>
-nnoremap <S-k> :bd<cr>
-
-" window navigation
-nnoremap <leader>w <C-w>
+nnoremap <leader>d :bd<cr>
+nnoremap <leader>q :q<cr>
+nnoremap <leader>Q :q!<cr>
 
 " quitting terminal
 tnoremap <Esc> <C-\><C-n>:q!<cr>
