@@ -40,6 +40,7 @@ call plug#end()
 " ----------------------------------------------------------------------------
 
 autocmd VimEnter * silent AirlineToggleWhitespace
+" let g:airline#extensions#tabline#enabled = 1
 " let g:airline_theme='zenburn'
 
 
@@ -129,10 +130,9 @@ nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 
-" buffer navigation
-nnoremap <tab> :bn<cr>
-nnoremap <S-tab> :bp<cr>
-nnoremap <leader>d :bd<cr>
+" terminal buffer escaping
+nnoremap \ :vert term<cr>
+" tnoremap <C-\> <C-\><C-n>:bd!<cr>
 
 " fzf searches
 nnoremap <leader>f :FZF<cr>
