@@ -124,6 +124,9 @@ set ttimeoutlen=50
 " leader
 let mapleader = " "
 
+" repeat last colon command
+" nnoremap , @:
+
 " j and k by lines on screen
 nnoremap j gj
 nnoremap k gk
@@ -134,9 +137,9 @@ vnoremap k gk
 nnoremap <tab> <C-w>w
 nnoremap <S-tab> <C-w>W
 
-" buffer navigation
-nnoremap <F3> :bp<cr>
-nnoremap <F4> :bn<cr>
+" buffers navigation
+nnoremap <F3> :bn<cr>
+nnoremap <F4> :bp<cr>
 nnoremap <F2> :bd<cr>
 nnoremap <leader>d :bd<cr>
 nnoremap <leader>D :bd!<cr>
@@ -148,7 +151,7 @@ nnoremap <Leader>Q :qa!<cr>
 " fzf searches
 nnoremap <leader>f :FZF<cr>
 nnoremap <leader>t :Tags<cr>
-nnoremap <nowait> <leader><space> :Buffers<cr>
+nnoremap <nowait>, :Buffers<cr>
 
 " terminal buffer escaping
 nnoremap \ :vert term<cr>
