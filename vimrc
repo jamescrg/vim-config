@@ -124,8 +124,9 @@ set ttimeoutlen=50
 " leader
 let mapleader = " "
 
-" repeat last colon command
-" nnoremap , @:
+" escaping
+inoremap jk <esc>
+tnoremap jk <C-\><C-n>
 
 " j and k by lines on screen
 nnoremap j gj
@@ -133,29 +134,33 @@ nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 
-" window navigation
-nnoremap <tab> <C-w>w
-nnoremap <S-tab> <C-w>W
-
-" buffers navigation
+" buffer navigation
 nnoremap <F3> :bn<cr>
 nnoremap <F4> :bp<cr>
-nnoremap <F2> :bd<cr>
-nnoremap <leader>d :bd<cr>
-nnoremap <leader>D :bd!<cr>
+nnoremap <F5> :bd<cr>
+nnoremap <S-k> :bd<cr>
 
-" exiting vim
-nnoremap <Leader>q :q<cr>
-nnoremap <Leader>Q :qa!<cr>
+" quitting vim
+nnoremap <leader>q :q<cr>
+nnoremap <leader>Q :q!<cr>
+
+" window navigation
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" terminal navigation
+nnoremap <leader>vt :vert term<cr>
+tnoremap <C-h> <C-w>h
+tnoremap <C-j> <C-w>j
+tnoremap <C-k> <C-w>k
+tnoremap <C-l> <C-w>l
 
 " fzf searches
 nnoremap <leader>f :FZF<cr>
 nnoremap <leader>t :Tags<cr>
-nnoremap <nowait>, :Buffers<cr>
-
-" terminal buffer escaping
-nnoremap \ :vert term<cr>
-tnoremap <S-tab> <C-W><C-W>
+nnoremap <nowait>b :Buffers<cr>
 
 " writing
 nnoremap <leader>G :Goyo<cr>
