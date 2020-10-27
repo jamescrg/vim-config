@@ -160,7 +160,7 @@ tnoremap <C-l> <C-w>l
 " fzf searches
 nnoremap <leader>f :FZF<cr>
 nnoremap <leader>t :Tags<cr>
-nnoremap <nowait>b :Buffers<cr>
+nnoremap <nowait><leader>b :Buffers<cr>
 
 " writing
 nnoremap <leader>G :Goyo<cr>
