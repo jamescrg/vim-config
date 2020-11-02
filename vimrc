@@ -20,6 +20,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'junegunn/vim-peekaboo'
+Plug 'ycm-core/YouCompleteMe'
 
 " languages
 Plug 'StanAngeloff/php.vim'
@@ -62,6 +63,9 @@ colorscheme forest-night
 " Behavior
 " ----------------------------------------------------------------------------
 
+" autocomplete
+" let g:loaded_youcompleteme = 1
+
 " enable mouse usage
 set mouse=a
 
@@ -86,15 +90,26 @@ let g:auto_save_in_insert_mode = 0
 
 " tabs
 set tabstop=4  
+set softtabstop=4  
 set shiftwidth=4
 set softtabstop=4
 set expandtab
+set autoindent
+set shiftround 
 
 " backspace
 set backspace=indent,eol,start
 
 " disable fzf preview window
 let g:fzf_preview_window = ''
+
+" enable folding
+set foldmethod=indent
+set foldlevel=99
+
+" autocompleted
+let g:ycm_autoclose_preview_window_after_completion=1
+map <leader>jd  :YcmCompleter GoTo<CR>
 
 
 " ----------------------------------------------------------------------------
@@ -115,6 +130,9 @@ set display=lastline
 
 " eliminate delay leaving insert mode
 set ttimeoutlen=50
+
+" highlight python whitespace
+" au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
 
 " ----------------------------------------------------------------------------
@@ -138,11 +156,8 @@ vnoremap k gk
 nnoremap <F3> :bn<cr>
 nnoremap <F4> :bp<cr>
 nnoremap <F5> :bd<cr>
-nnoremap <S-k> :bd<cr>
-
-" quitting vim
-nnoremap <leader>q :q<cr>
-nnoremap <leader>Q :q!<cr>
+nnoremap <leader>d :bd<cr>
+nnoremap <BS> <C-^> 
 
 " window navigation
 nnoremap <C-h> <C-w>h
@@ -151,11 +166,17 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 " terminal navigation
-nnoremap <leader>vt :vert term<cr>
 tnoremap <C-h> <C-w>h
 tnoremap <C-j> <C-w>j
 tnoremap <C-k> <C-w>k
 tnoremap <C-l> <C-w>l
+
+" quitting vim
+nnoremap <F11> :bd!<cr>
+nnoremap <F12> :q!<cr>
+
+" terminal navigation
+nnoremap <leader>vt :vert term<cr>
 
 " fzf searches
 nnoremap <leader>f :FZF<cr>
@@ -171,6 +192,7 @@ nnoremap <leader>r :%s//gc<left><left><left>
 
 " edit the .vimrc file
 nnoremap <leader>ev :e ~/.vim/vimrc<cr>
+nnoremap <leader>eb :e ~/.bashrc<cr>
 nnoremap <leader>so :so %<cr>
 
 " toggle spell check
