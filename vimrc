@@ -21,6 +21,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'junegunn/vim-peekaboo'
 Plug 'ycm-core/YouCompleteMe'
+Plug 'romainl/vim-cool'
 
 " languages
 Plug 'StanAngeloff/php.vim'
@@ -75,6 +76,7 @@ set noswapfile
 " search
 set smartcase    
 set incsearch
+set hlsearch
 
 " open splits on the right and bottom
 set splitright
@@ -109,7 +111,7 @@ set foldlevel=99
 
 " autocompleted
 let g:ycm_autoclose_preview_window_after_completion=1
-map <leader>jd  :YcmCompleter GoTo<CR>
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 
 " ----------------------------------------------------------------------------
@@ -130,9 +132,6 @@ set display=lastline
 
 " eliminate delay leaving insert mode
 set ttimeoutlen=50
-
-" highlight python whitespace
-" au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
 
 " ----------------------------------------------------------------------------
@@ -156,8 +155,6 @@ vnoremap k gk
 nnoremap <F3> :bn<cr>
 nnoremap <F4> :bp<cr>
 nnoremap <F5> :bd<cr>
-nnoremap <leader>d :bd<cr>
-nnoremap <BS> <C-^> 
 
 " window navigation
 nnoremap <C-h> <C-w>h
@@ -170,6 +167,9 @@ tnoremap <C-h> <C-w>h
 tnoremap <C-j> <C-w>j
 tnoremap <C-k> <C-w>k
 tnoremap <C-l> <C-w>l
+
+" search highlighting
+:noremap <cr> :noh<cr><cr>
 
 " quitting vim
 nnoremap <F11> :bd!<cr>
