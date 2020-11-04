@@ -20,8 +20,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'junegunn/vim-peekaboo'
-Plug 'ycm-core/YouCompleteMe'
-Plug 'romainl/vim-cool'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'preservim/tagbar'
 
 " languages
 Plug 'StanAngeloff/php.vim'
@@ -42,8 +42,6 @@ call plug#end()
 " ----------------------------------------------------------------------------
 
 autocmd VimEnter * silent AirlineToggleWhitespace
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline_theme='zenburn'
 
 
 " ----------------------------------------------------------------------------
@@ -58,14 +56,13 @@ syntax enable
 set termguicolors
 
 colorscheme forest-night
+" set background=dark
+" colorscheme gruvbox
 
 
 " ----------------------------------------------------------------------------
 " Behavior
 " ----------------------------------------------------------------------------
-
-" autocomplete
-" let g:loaded_youcompleteme = 1
 
 " enable mouse usage
 set mouse=a
@@ -155,18 +152,16 @@ vnoremap k gk
 nnoremap <F3> :bn<cr>
 nnoremap <F4> :bp<cr>
 nnoremap <F5> :bd<cr>
+nnoremap <S-k> :bd<cr>
 
 " window navigation
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+noremap <tab> <C-w>w
+noremap <S-tab> <C-w>W
+noremap <leader>w <C-w>
 
 " terminal navigation
-tnoremap <C-h> <C-w>h
-tnoremap <C-j> <C-w>j
-tnoremap <C-k> <C-w>k
-tnoremap <C-l> <C-w>l
+tnoremap <tab> <C-w>w
+tnoremap <S-tab> <C-w>W
 
 " search highlighting
 :noremap <cr> :noh<cr><cr>
