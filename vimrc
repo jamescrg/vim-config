@@ -8,6 +8,7 @@ call plug#begin('~/.vim/plugged')
 
 " color schemes
 Plug 'junegunn/seoul256.vim'
+Plug 'NLKNguyen/papercolor-theme'
 Plug 'sainnhe/forest-night'
 Plug 'morhetz/gruvbox'
 
@@ -55,9 +56,14 @@ syntax enable
 " set t_Co=256
 set termguicolors
 
-colorscheme forest-night
+" background
 " set background=dark
+set background=light
+
+" colorscheme
 " colorscheme gruvbox
+colorscheme PaperColor
+" colorscheme forest-night
 
 
 " ----------------------------------------------------------------------------
@@ -170,8 +176,10 @@ tnoremap <S-tab> <C-w>W
 nnoremap <F11> :bd!<cr>
 nnoremap <F12> :q!<cr>
 
-" terminal navigation
-nnoremap <leader>vt :vert term<cr>
+" right pane navigation
+nnoremap <F9> :vert term<cr>
+tnoremap <F9> <C-d>
+nnoremap <F8> :TagbarToggle<cr>
 
 " fzf searches
 nnoremap <leader>f :FZF<cr>
