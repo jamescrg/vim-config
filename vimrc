@@ -57,13 +57,13 @@ syntax enable
 set termguicolors
 
 " background
-" set background=dark
-set background=light
+set background=dark
+" set background=light
 
 " colorscheme
 " colorscheme gruvbox
-colorscheme PaperColor
-" colorscheme forest-night
+" colorscheme PaperColor
+colorscheme forest-night
 
 
 " ----------------------------------------------------------------------------
