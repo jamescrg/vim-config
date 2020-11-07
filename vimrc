@@ -142,7 +142,7 @@ set ttimeoutlen=50
 " ----------------------------------------------------------------------------
 
 " leader
-let mapleader = ","
+let mapleader = " "
 
 " escaping
 inoremap jk <esc>
@@ -159,20 +159,15 @@ nnoremap <F3> :bn<cr>
 nnoremap <F4> :bp<cr>
 nnoremap <F5> :bd<cr>
 nnoremap <leader>d :bd<cr>
+nnoremap <leader>D :bd!<cr>
 nnoremap <leader>q :q<cr>
 
 " window navigation
-noremap ,w <C-w>
-
-" terminal navigation
-tnoremap ,w <C-w>
+noremap <leader>w <C-w>
+tnoremap <leader>w <C-w>
 
 " search highlighting
 :noremap <cr> :noh<cr><cr>
-
-" quitting vim
-nnoremap <F11> :bd!<cr>
-nnoremap <F12> :q!<cr>
 
 " right pane navigation
 nnoremap <F9> :vert term<cr>
