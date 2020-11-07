@@ -142,7 +142,7 @@ set ttimeoutlen=50
 " ----------------------------------------------------------------------------
 
 " leader
-let mapleader = " "
+let mapleader = ","
 
 " escaping
 inoremap jk <esc>
@@ -158,16 +158,14 @@ vnoremap k gk
 nnoremap <F3> :bn<cr>
 nnoremap <F4> :bp<cr>
 nnoremap <F5> :bd<cr>
-nnoremap <S-k> :bd<cr>
+nnoremap <leader>d :bd<cr>
+nnoremap <leader>q :q<cr>
 
 " window navigation
-noremap <tab> <C-w>w
-noremap <S-tab> <C-w>W
-noremap <leader>w <C-w>
+noremap ,w <C-w>
 
 " terminal navigation
-tnoremap <tab> <C-w>w
-tnoremap <S-tab> <C-w>W
+tnoremap ,w <C-w>
 
 " search highlighting
 :noremap <cr> :noh<cr><cr>
