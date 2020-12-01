@@ -1,5 +1,4 @@
 
-
 " ----------------------------------------------------------------------------
 " Vim Plug
 " ----------------------------------------------------------------------------
@@ -11,11 +10,16 @@ Plug 'junegunn/seoul256.vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'sainnhe/forest-night'
 Plug 'morhetz/gruvbox'
+Plug 'arcticicestudio/nord-vim'
+Plug 'gosukiwi/vim-atom-dark'
+Plug 'jnurmine/Zenburn'
+Plug 'sickill/vim-monokai'
+Plug 'ulwlu/elly.vim'
+Plug 'romainl/Apprentice'
 
 " interface
 Plug 'vim-scripts/vim-auto-save'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-vinegar'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
@@ -23,6 +27,8 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'junegunn/vim-peekaboo'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'preservim/tagbar'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-vinegar'
 
 " languages
 Plug 'StanAngeloff/php.vim'
@@ -44,7 +50,6 @@ call plug#end()
 
 autocmd VimEnter * silent AirlineToggleWhitespace
 
-
 " ----------------------------------------------------------------------------
 " Colorscheme
 " ----------------------------------------------------------------------------
@@ -57,13 +62,16 @@ syntax enable
 set termguicolors
 
 " background
-set background=dark
+" set background=dark
 " set background=light
 
 " colorscheme
 " colorscheme gruvbox
+" let g:gruvbox_contrast_dark = soft
+" colorscheme nord
 " colorscheme PaperColor
 colorscheme forest-night
+" colorscheme elly
 
 
 " ----------------------------------------------------------------------------
@@ -108,14 +116,15 @@ set backspace=indent,eol,start
 " disable fzf preview window
 let g:fzf_preview_window = ''
 
-" enable folding
-set foldmethod=indent
-set foldlevel=99
+" persistent undo history
+set undofile
+set undodir=~/.vim/undodir
 
-" autocompleted
-let g:ycm_autoclose_preview_window_after_completion=1
-map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+" vimgrep ignore directories
+:set wildignore+=vendor/**,storage/**,tags,composer*
 
+" search for word under cursor, including firt word
+nnoremap * *N
 
 " ----------------------------------------------------------------------------
 " Appearance
@@ -125,7 +134,7 @@ map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 set number
 
 "wrap lines
-set wrap
+set nowrap
 
 " break at whitespace not words
 set linebreak
@@ -145,8 +154,9 @@ set ttimeoutlen=50
 let mapleader = " "
 
 " escaping
+inoremap jj <esc>
 inoremap jk <esc>
-tnoremap jk <C-\><C-n>
+inoremap kj <esc>
 
 " j and k by lines on screen
 nnoremap j gj
@@ -154,24 +164,22 @@ nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 
-" buffer navigation
-nnoremap <F3> :bn<cr>
-nnoremap <F4> :bp<cr>
-nnoremap <F5> :bd<cr>
-nnoremap <leader>d :bd<cr>
-nnoremap <leader>D :bd!<cr>
-nnoremap <leader>q :q<cr>
-
 " window navigation
-noremap <leader>w <C-w>
-tnoremap <leader>w <C-w>
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+nnoremap <leader>w <C-w>
+tnoremap <leader>ww <C-w>w
 
 " search highlighting
 :noremap <cr> :noh<cr><cr>
 
-" right pane navigation
+" terminal open/close
 nnoremap <F9> :vert term<cr>
 tnoremap <F9> <C-d>
+
+" tagbar toggle
 nnoremap <F8> :TagbarToggle<cr>
 
 " fzf searches
