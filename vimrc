@@ -16,6 +16,9 @@ Plug 'jnurmine/Zenburn'
 Plug 'sickill/vim-monokai'
 Plug 'ulwlu/elly.vim'
 Plug 'romainl/Apprentice'
+Plug 'mhartington/oceanic-next'
+Plug 'altercation/vim-colors-solarized'
+Plug 'nelsyeung/twig.vim'
 
 " interface
 Plug 'vim-scripts/vim-auto-save'
@@ -32,6 +35,7 @@ Plug 'tpope/vim-vinegar'
 
 " languages
 Plug 'StanAngeloff/php.vim'
+Plug 'jwalton512/vim-blade'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 
@@ -49,6 +53,12 @@ call plug#end()
 " ----------------------------------------------------------------------------
 
 autocmd VimEnter * silent AirlineToggleWhitespace
+let g:airline_theme='zenburn'
+
+augroup blade
+autocmd!
+autocmd BufNewFile,BufRead *.blade.php set filetype=blade
+augroup END
 
 " ----------------------------------------------------------------------------
 " Colorscheme
@@ -57,21 +67,34 @@ autocmd VimEnter * silent AirlineToggleWhitespace
 " allow sytax highlightking
 syntax enable
 
-" change color pallette
-" set t_Co=256
 set termguicolors
 
 " background
 " set background=dark
 " set background=light
 
+" seoul256 (dark):
+"   Range:   233 (darkest) ~ 239 (lightest)
+"   Default: 237
+" let g:seoul256_background = 238
+
+" seoul256 (light):
+"   Range:   252 (darkest) ~ 256 (lightest)
+"   Default: 253
+" let g:seoul256_light_background = 252
+
 " colorscheme
+" let g:gruvbox_contrast_dark = 'soft'
 " colorscheme gruvbox
-" let g:gruvbox_contrast_dark = soft
 " colorscheme nord
 " colorscheme PaperColor
 colorscheme forest-night
 " colorscheme elly
+" colorscheme seoul256
+" colorscheme seoul256-light
+" colorscheme OceanicNext
+" let g:solarized_termcolors=256
+" colorscheme solarized
 
 
 " ----------------------------------------------------------------------------
@@ -121,17 +144,23 @@ set undofile
 set undodir=~/.vim/undodir
 
 " vimgrep ignore directories
-:set wildignore+=vendor/**,storage/**,tags,composer*
+set wildignore+=vendor/**,tags,.git/**,libraries/**
 
-" search for word under cursor, including firt word
+" search for word under cursor, including first word
 nnoremap * *N
+
+" hide netrw from buffer-toggle
+let g:netrw_altfile = 1
 
 " ----------------------------------------------------------------------------
 " Appearance
 " ----------------------------------------------------------------------------
 
-"always show line numbers
+" always show line numbers
 set number
+
+" relative line numbers
+set relativenumber
 
 "wrap lines
 set nowrap
@@ -157,6 +186,7 @@ let mapleader = " "
 inoremap jj <esc>
 inoremap jk <esc>
 inoremap kj <esc>
+inoremap kk <esc>
 
 " j and k by lines on screen
 nnoremap j gj
@@ -164,20 +194,33 @@ nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 
+" backspace in normal mode
+nnoremap <bs> X
+
 " window navigation
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-nnoremap <leader>w <C-w>
-tnoremap <leader>ww <C-w>w
+nnoremap <tab>   <c-w>w
+nnoremap <S-tab> <c-w>W
+
+" terminal navigation
+nnoremap \ :vert term<cr>
+tnoremap \ <C-d>
+tnoremap <tab>   <c-w>w
+tnoremap <S-tab> <c-w>W
+
+" buffer navigation
+nnoremap K :bd<cr>
+nnoremap J :b#<cr>
+nnoremap H :bn<cr>
+nnoremap L :bp<cr>
+
+" quickfix navigation
+nnoremap ]q :cnext<cr>zz
+nnoremap [q :cprev<cr>zz
+nnoremap <F3> :cnext<cr>zz
+nnoremap <F4> @@
 
 " search highlighting
-:noremap <cr> :noh<cr><cr>
-
-" terminal open/close
-nnoremap <F9> :vert term<cr>
-tnoremap <F9> <C-d>
+noremap <cr> :noh<cr><cr>
 
 " tagbar toggle
 nnoremap <F8> :TagbarToggle<cr>
@@ -207,3 +250,14 @@ nnoremap <leader>sw :set wrap!<cr>
 
 " insert text
 iab icd ## <c-r>=strftime('%Y-%m-%d')<cr>
+
+" multiple cursors
+nnoremap c* /\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgn
+nnoremap c# ?\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgN
+
+" search for visually selected text
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+
+" camel case conversion
+vnoremap ,u :s/\<\@!\([A-Z]\)/\_\l\1/g<CR>gul
+nnoremap ,c :s#_\(\l\)#\u\1#g
