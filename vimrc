@@ -32,6 +32,7 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'preservim/tagbar'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
+" Plug 'preservim/nerdtree'
 
 " languages
 Plug 'StanAngeloff/php.vim'
@@ -53,7 +54,8 @@ call plug#end()
 " ----------------------------------------------------------------------------
 
 autocmd VimEnter * silent AirlineToggleWhitespace
-let g:airline_theme='zenburn'
+let g:airline_theme='gruvbox'
+let g:airline#extensions#tabline#enabled = 1
 
 augroup blade
 autocmd!
@@ -70,13 +72,13 @@ syntax enable
 set termguicolors
 
 " background
-" set background=dark
+set background=dark
 " set background=light
 
 " seoul256 (dark):
 "   Range:   233 (darkest) ~ 239 (lightest)
 "   Default: 237
-" let g:seoul256_background = 238
+" let g:seoul256_background = 236
 
 " seoul256 (light):
 "   Range:   252 (darkest) ~ 256 (lightest)
@@ -84,11 +86,12 @@ set termguicolors
 " let g:seoul256_light_background = 252
 
 " colorscheme
-" let g:gruvbox_contrast_dark = 'soft'
-" colorscheme gruvbox
+let g:gruvbox_contrast_dark = 'soft'
+colorscheme gruvbox
 " colorscheme nord
 " colorscheme PaperColor
-colorscheme forest-night
+" colorscheme forest-night
+" colorscheme zenburn
 " colorscheme elly
 " colorscheme seoul256
 " colorscheme seoul256-light
@@ -163,7 +166,8 @@ set number
 set relativenumber
 
 "wrap lines
-set nowrap
+" set nowrap
+set wrap
 
 " break at whitespace not words
 set linebreak
@@ -181,6 +185,9 @@ set ttimeoutlen=50
 
 " leader
 let mapleader = " "
+
+" nnoremap <F2> :NERDTreeToggle<CR>
+" let g:NERDTreeQuitOnOpen = 1
 
 " escaping
 inoremap jj <esc>
@@ -208,16 +215,18 @@ tnoremap <tab>   <c-w>w
 tnoremap <S-tab> <c-w>W
 
 " buffer navigation
-nnoremap K :bd<cr>
-nnoremap J :b#<cr>
-nnoremap H :bn<cr>
-nnoremap L :bp<cr>
+nnoremap <S-h> :bp<cr>
+nnoremap <S-j> <C-^:>
+nnoremap <S-l> :bn<cr>
+nnoremap <S-k> :bd<cr>
+nnoremap <F12> :q<cr>
+
 
 " quickfix navigation
-nnoremap ]q :cnext<cr>zz
-nnoremap [q :cprev<cr>zz
-nnoremap <F3> :cnext<cr>zz
-nnoremap <F4> @@
+" nnoremap ]q :cnext<cr>zz
+" nnoremap [q :cprev<cr>zz
+" nnoremap <F3> :cnext<cr>zz
+" nnoremap <F4> @@
 
 " search highlighting
 noremap <cr> :noh<cr><cr>
@@ -227,12 +236,14 @@ nnoremap <F8> :TagbarToggle<cr>
 
 " fzf searches
 nnoremap <leader>f :FZF<cr>
+nnoremap <leader>g :GFiles<cr>
 nnoremap <leader>t :Tags<cr>
 nnoremap <nowait><leader>b :Buffers<cr>
 
 " writing
 nnoremap <leader>G :Goyo<cr>
-nnoremap <leader>T :Toc<cr>
+nnoremap <leader>t :Toc<cr>
+nnoremap S [sz=
 
 " easy search and replace
 nnoremap <leader>r :%s//gc<left><left><left>
