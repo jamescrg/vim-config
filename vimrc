@@ -6,19 +6,7 @@
 call plug#begin('~/.vim/plugged')
 
 " color schemes
-Plug 'junegunn/seoul256.vim'
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'sainnhe/forest-night'
 Plug 'morhetz/gruvbox'
-Plug 'arcticicestudio/nord-vim'
-Plug 'gosukiwi/vim-atom-dark'
-Plug 'jnurmine/Zenburn'
-Plug 'sickill/vim-monokai'
-Plug 'ulwlu/elly.vim'
-Plug 'romainl/Apprentice'
-Plug 'mhartington/oceanic-next'
-Plug 'altercation/vim-colors-solarized'
-Plug 'nelsyeung/twig.vim'
 
 " interface
 Plug 'vim-scripts/vim-auto-save'
@@ -32,7 +20,7 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'preservim/tagbar'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
-" Plug 'preservim/nerdtree'
+Plug 'preservim/nerdtree'
 
 " languages
 Plug 'StanAngeloff/php.vim'
@@ -55,7 +43,7 @@ call plug#end()
 
 autocmd VimEnter * silent AirlineToggleWhitespace
 let g:airline_theme='gruvbox'
-let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#enabled = 1
 
 augroup blade
 autocmd!
@@ -75,29 +63,9 @@ set termguicolors
 set background=dark
 " set background=light
 
-" seoul256 (dark):
-"   Range:   233 (darkest) ~ 239 (lightest)
-"   Default: 237
-" let g:seoul256_background = 236
-
-" seoul256 (light):
-"   Range:   252 (darkest) ~ 256 (lightest)
-"   Default: 253
-" let g:seoul256_light_background = 252
-
 " colorscheme
 let g:gruvbox_contrast_dark = 'soft'
 colorscheme gruvbox
-" colorscheme nord
-" colorscheme PaperColor
-" colorscheme forest-night
-" colorscheme zenburn
-" colorscheme elly
-" colorscheme seoul256
-" colorscheme seoul256-light
-" colorscheme OceanicNext
-" let g:solarized_termcolors=256
-" colorscheme solarized
 
 
 " ----------------------------------------------------------------------------
@@ -186,8 +154,7 @@ set ttimeoutlen=50
 " leader
 let mapleader = " "
 
-" nnoremap <F2> :NERDTreeToggle<CR>
-" let g:NERDTreeQuitOnOpen = 1
+nnoremap <C-n> :NERDTreeToggle<CR>
 
 " escaping
 inoremap jj <esc>
