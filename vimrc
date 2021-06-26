@@ -7,6 +7,7 @@ call plug#begin('~/.vim/plugged')
 
 " color schemes
 Plug 'morhetz/gruvbox'
+Plug 'junegunn/seoul256.vim'
 
 " interface
 Plug 'vim-scripts/vim-auto-save'
@@ -38,6 +39,45 @@ call plug#end()
 
 
 " ----------------------------------------------------------------------------
+" Colorscheme
+" ----------------------------------------------------------------------------
+
+" allow sytax highlightking
+syntax enable
+
+
+" gruvbox dark
+set termguicolors
+set background=dark
+let g:gruvbox_contrast_dark = 'soft'
+let g:gruvbox_guisp_fallback = "bg"
+colorscheme gruvbox
+
+" seoul256 light
+"   Range:   252 (darkest) ~ 256 (lightest)
+"   Default: 253
+" let g:seoul256_background = 252
+" set background=light
+" colo seoul256-light
+
+
+" ----------------------------------------------------------------------------
+" NERDTree
+" ----------------------------------------------------------------------------
+
+"start nerdtree on open
+autocmd VimEnter * NERDTree | wincmd p
+
+" close vimwhen NERDTree is last window
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
+    \ quit | endif
+
+" prevent other buffers replacing NERDTree
+autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endi
+
+
+" ----------------------------------------------------------------------------
 " Airline
 " ----------------------------------------------------------------------------
 
@@ -49,23 +89,6 @@ augroup blade
 autocmd!
 autocmd BufNewFile,BufRead *.blade.php set filetype=blade
 augroup END
-
-" ----------------------------------------------------------------------------
-" Colorscheme
-" ----------------------------------------------------------------------------
-
-" allow sytax highlightking
-syntax enable
-
-set termguicolors
-
-" background
-set background=dark
-" set background=light
-
-" colorscheme
-let g:gruvbox_contrast_dark = 'soft'
-colorscheme gruvbox
 
 
 " ----------------------------------------------------------------------------
