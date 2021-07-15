@@ -8,6 +8,7 @@ call plug#begin('~/.vim/plugged')
 " color schemes
 Plug 'morhetz/gruvbox'
 Plug 'junegunn/seoul256.vim'
+Plug 'altercation/vim-colors-solarized'
 
 " interface
 Plug 'vim-scripts/vim-auto-save'
@@ -22,6 +23,8 @@ Plug 'preservim/tagbar'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'preservim/nerdtree'
+Plug 'alvan/vim-closetag'
+" Plug 'jiangmiao/auto-pairs'
 
 " languages
 Plug 'StanAngeloff/php.vim'
@@ -45,20 +48,32 @@ call plug#end()
 " allow sytax highlightking
 syntax enable
 
-
 " gruvbox dark
-set termguicolors
-set background=dark
-let g:gruvbox_contrast_dark = 'soft'
-let g:gruvbox_guisp_fallback = "bg"
-colorscheme gruvbox
+" ---------------------------
+" set termguicolors
+" set background=dark
+" let g:gruvbox_contrast_dark = 'medium'
+" let g:gruvbox_guisp_fallback = 'bg'
+" let g:airline_theme='gruvbox'
+" colorscheme gruvbox
 
 " seoul256 light
+" ---------------------------
 "   Range:   252 (darkest) ~ 256 (lightest)
 "   Default: 253
-" let g:seoul256_background = 252
+let g:seoul256_background = 254
+let g:airline_theme='zenburn'
+set background=light
+colorscheme seoul256-light
+
+" solarized
+" ---------------------------
+" set termguicolors
+" let g:solarized_termcolors=256
+" let g:airline_theme='solarized'
+" let g:solarized_contrast = 'high'
 " set background=light
-" colo seoul256-light
+" colorscheme solarized
 
 
 " ----------------------------------------------------------------------------
@@ -82,13 +97,19 @@ autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_
 " ----------------------------------------------------------------------------
 
 autocmd VimEnter * silent AirlineToggleWhitespace
-let g:airline_theme='gruvbox'
 " let g:airline#extensions#tabline#enabled = 1
 
 augroup blade
 autocmd!
 autocmd BufNewFile,BufRead *.blade.php set filetype=blade
 augroup END
+
+
+" ----------------------------------------------------------------------------
+" Closetags
+" ----------------------------------------------------------------------------
+
+let g:closetag_filenames = '*.html,*.php'
 
 
 " ----------------------------------------------------------------------------
@@ -140,9 +161,6 @@ set undodir=~/.vim/undodir
 " vimgrep ignore directories
 set wildignore+=vendor/**,tags,.git/**,libraries/**
 
-" search for word under cursor, including first word
-nnoremap * *N
-
 " hide netrw from buffer-toggle
 let g:netrw_altfile = 1
 
@@ -152,9 +170,6 @@ let g:netrw_altfile = 1
 
 " always show line numbers
 set number
-
-" relative line numbers
-set relativenumber
 
 "wrap lines
 " set nowrap
@@ -177,22 +192,16 @@ set ttimeoutlen=50
 " leader
 let mapleader = " "
 
-nnoremap <C-n> :NERDTreeToggle<CR>
-
 " escaping
 inoremap jj <esc>
 inoremap jk <esc>
 inoremap kj <esc>
-inoremap kk <esc>
 
 " j and k by lines on screen
 nnoremap j gj
 nnoremap k gk
 vnoremap j gj
 vnoremap k gk
-
-" backspace in normal mode
-nnoremap <bs> X
 
 " window navigation
 nnoremap <tab>   <c-w>w
@@ -225,15 +234,19 @@ noremap <cr> :noh<cr><cr>
 nnoremap <F8> :TagbarToggle<cr>
 
 " fzf searches
-nnoremap <leader>f :FZF<cr>
-nnoremap <leader>g :GFiles<cr>
+" nnoremap <leader>f :FZF<cr>
+nnoremap <leader>f :GFiles<cr>
 nnoremap <leader>t :Tags<cr>
 nnoremap <nowait><leader>b :Buffers<cr>
+nnoremap <leader>n :NERDTreeFind<cr>
 
 " writing
-nnoremap <leader>G :Goyo<cr>
-nnoremap <leader>t :Toc<cr>
+nnoremap <leader>g :Goyo<cr>
+nnoremap <leader>T :Toc<cr>
 nnoremap S [sz=
+
+" search for word under cursor, including first word
+nnoremap * *N
 
 " easy search and replace
 nnoremap <leader>r :%s//gc<left><left><left>
