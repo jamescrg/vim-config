@@ -6,30 +6,26 @@
 call plug#begin('~/.vim/plugged')
 
 " color schemes
-Plug 'morhetz/gruvbox'
 Plug 'junegunn/seoul256.vim'
-Plug 'altercation/vim-colors-solarized'
 
 " interface
-Plug 'vim-scripts/vim-auto-save'
-Plug 'tpope/vim-commentary'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'junegunn/vim-peekaboo'
-Plug 'ludovicchabant/vim-gutentags'
 Plug 'preservim/tagbar'
-Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
-Plug 'preservim/nerdtree'
+
+" behavior / tools
+Plug 'vim-scripts/vim-auto-save'
+Plug 'tpope/vim-commentary'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'tpope/vim-surround'
 Plug 'alvan/vim-closetag'
-" Plug 'jiangmiao/auto-pairs'
 
 " languages
 Plug 'StanAngeloff/php.vim'
-Plug 'jwalton512/vim-blade'
-Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 
 " prose
@@ -48,15 +44,6 @@ call plug#end()
 " allow sytax highlightking
 syntax enable
 
-" gruvbox dark
-" ---------------------------
-" set termguicolors
-" set background=dark
-" let g:gruvbox_contrast_dark = 'medium'
-" let g:gruvbox_guisp_fallback = 'bg'
-" let g:airline_theme='gruvbox'
-" colorscheme gruvbox
-
 " seoul256 light
 " ---------------------------
 "   Range:   252 (darkest) ~ 256 (lightest)
@@ -65,31 +52,6 @@ let g:seoul256_background = 254
 let g:airline_theme='zenburn'
 set background=light
 colorscheme seoul256-light
-
-" solarized
-" ---------------------------
-" set termguicolors
-" let g:solarized_termcolors=256
-" let g:airline_theme='solarized'
-" let g:solarized_contrast = 'high'
-" set background=light
-" colorscheme solarized
-
-
-" ----------------------------------------------------------------------------
-" NERDTree
-" ----------------------------------------------------------------------------
-
-"start nerdtree on open
-autocmd VimEnter * NERDTree | wincmd p
-
-" close vimwhen NERDTree is last window
-autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
-    \ quit | endif
-
-" prevent other buffers replacing NERDTree
-autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
-    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endi
 
 
 " ----------------------------------------------------------------------------
@@ -158,11 +120,18 @@ let g:fzf_preview_window = ''
 set undofile
 set undodir=~/.vim/undodir
 
-" vimgrep ignore directories
-set wildignore+=vendor/**,tags,.git/**,libraries/**
+set wildignore+=vendor/**,tags,.git/**,libraries/**,storage/**,test/**
 
 " hide netrw from buffer-toggle
 let g:netrw_altfile = 1
+
+" automatically close pairs
+inoremap ( ()<Esc>i
+inoremap [ []<Esc>i
+inoremap { {}<Esc>i
+inoremap {<CR> {<CR>}<Esc>O
+inoremap ' ''<esc>i
+inoremap " ""<esc>i
 
 " ----------------------------------------------------------------------------
 " Appearance
@@ -207,25 +176,12 @@ vnoremap k gk
 nnoremap <tab>   <c-w>w
 nnoremap <S-tab> <c-w>W
 
-" terminal navigation
-nnoremap \ :vert term<cr>
-tnoremap \ <C-d>
-tnoremap <tab>   <c-w>w
-tnoremap <S-tab> <c-w>W
-
-" buffer navigation
-nnoremap <S-h> :bp<cr>
-nnoremap <S-j> <C-^:>
-nnoremap <S-l> :bn<cr>
-nnoremap <S-k> :bd<cr>
-nnoremap <F12> :q<cr>
-
+" easy close
+nnoremap <F12> :q!<cr>
 
 " quickfix navigation
-" nnoremap ]q :cnext<cr>zz
-" nnoremap [q :cprev<cr>zz
-" nnoremap <F3> :cnext<cr>zz
-" nnoremap <F4> @@
+nnoremap ]q :cnext<cr>zz
+nnoremap [q :cprev<cr>zz
 
 " search highlighting
 noremap <cr> :noh<cr><cr>
@@ -235,15 +191,14 @@ nnoremap <F8> :TagbarToggle<cr>
 
 " fzf searches
 " nnoremap <leader>f :FZF<cr>
-nnoremap <leader>f :GFiles<cr>
-nnoremap <leader>t :Tags<cr>
+nnoremap <leader>f :FZF<cr>
 nnoremap <nowait><leader>b :Buffers<cr>
-nnoremap <leader>n :NERDTreeFind<cr>
+nnoremap <leader>g :GFiles<cr>
+nnoremap <leader>t :Tags<cr>
 
 " writing
-nnoremap <leader>g :Goyo<cr>
+nnoremap <leader>G :Goyo<cr>
 nnoremap <leader>T :Toc<cr>
-nnoremap S [sz=
 
 " search for word under cursor, including first word
 nnoremap * *N
@@ -265,13 +220,5 @@ nnoremap <leader>sw :set wrap!<cr>
 " insert text
 iab icd ## <c-r>=strftime('%Y-%m-%d')<cr>
 
-" multiple cursors
-nnoremap c* /\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgn
-nnoremap c# ?\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgN
-
 " search for visually selected text
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
-
-" camel case conversion
-vnoremap ,u :s/\<\@!\([A-Z]\)/\_\l\1/g<CR>gul
-nnoremap ,c :s#_\(\l\)#\u\1#g
