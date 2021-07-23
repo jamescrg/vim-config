@@ -16,6 +16,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'junegunn/vim-peekaboo'
 Plug 'preservim/tagbar'
 Plug 'tpope/vim-vinegar'
+" Plug 'preservim/nerdtree'
 
 " behavior / tools
 Plug 'vim-scripts/vim-auto-save'
@@ -27,6 +28,7 @@ Plug 'alvan/vim-closetag'
 " languages
 Plug 'StanAngeloff/php.vim'
 Plug 'plasticboy/vim-markdown'
+Plug 'jwalton512/vim-blade'
 
 " prose
 Plug 'junegunn/goyo.vim'
@@ -53,6 +55,20 @@ let g:airline_theme='zenburn'
 set background=light
 colorscheme seoul256-light
 
+
+" ----------------------------------------------------------------------------
+" NERDTree
+" ----------------------------------------------------------------------------
+
+" Start NERDTree and put the cursor back in the other window.
+" autocmd VimEnter * NERDTree | wincmd p
+
+" " If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+" autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+"     \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+
+" nnoremap <C-t> :NERDTreeToggle<CR>
+" nnoremap <C-n> :NERDTreeFind<CR>
 
 " ----------------------------------------------------------------------------
 " Airline
@@ -126,12 +142,12 @@ set wildignore+=vendor/**,tags,.git/**,libraries/**,storage/**,test/**
 let g:netrw_altfile = 1
 
 " automatically close pairs
-inoremap ( ()<Esc>i
-inoremap [ []<Esc>i
-inoremap { {}<Esc>i
-inoremap {<CR> {<CR>}<Esc>O
-inoremap ' ''<esc>i
-inoremap " ""<esc>i
+" inoremap ( ()<Esc>i
+" inoremap [ []<Esc>i
+" inoremap { {}<Esc>i
+" inoremap {<CR> {<CR>}<Esc>O
+" inoremap ' ''<esc>i
+" inoremap " ""<esc>i
 
 " ----------------------------------------------------------------------------
 " Appearance
@@ -175,9 +191,8 @@ vnoremap k gk
 " window navigation
 nnoremap <tab>   <c-w>w
 nnoremap <S-tab> <c-w>W
-
-" easy close
-nnoremap <F12> :q!<cr>
+nnoremap K :bd<cr>
+nnoremap <C-d> :q!<cr>
 
 " quickfix navigation
 nnoremap ]q :cnext<cr>zz
@@ -191,9 +206,9 @@ nnoremap <F8> :TagbarToggle<cr>
 
 " fzf searches
 " nnoremap <leader>f :FZF<cr>
-nnoremap <leader>f :FZF<cr>
+nnoremap <leader>f :GFiles<cr>
+nnoremap <leader>F :FZF<cr>
 nnoremap <nowait><leader>b :Buffers<cr>
-nnoremap <leader>g :GFiles<cr>
 nnoremap <leader>t :Tags<cr>
 
 " writing
