@@ -23,10 +23,12 @@ Plug 'tpope/vim-commentary'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-surround'
 Plug 'alvan/vim-closetag'
+Plug 'SirVer/ultisnips'
 
 " languages
 Plug 'StanAngeloff/php.vim'
 Plug 'plasticboy/vim-markdown'
+Plug 'jwalton512/vim-blade'
 
 " prose
 Plug 'junegunn/goyo.vim'
@@ -53,6 +55,20 @@ let g:airline_theme='zenburn'
 set background=light
 colorscheme seoul256-light
 
+
+" ----------------------------------------------------------------------------
+" NERDTree
+" ----------------------------------------------------------------------------
+
+" Start NERDTree and put the cursor back in the other window.
+" autocmd VimEnter * NERDTree | wincmd p
+
+" " If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+" autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+"     \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+
+" nnoremap <C-t> :NERDTreeToggle<CR>
+" nnoremap <C-n> :NERDTreeFind<CR>
 
 " ----------------------------------------------------------------------------
 " Airline
@@ -109,6 +125,7 @@ set softtabstop=4
 set expandtab
 set autoindent
 set shiftround 
+autocmd BufRead,BufNewFile *.htm,*.html,*.blade.php setlocal tabstop=2 shiftwidth=2 softtabstop=2
 
 " backspace
 set backspace=indent,eol,start
@@ -126,12 +143,12 @@ set wildignore+=vendor/**,tags,.git/**,libraries/**,storage/**,test/**
 let g:netrw_altfile = 1
 
 " automatically close pairs
-inoremap ( ()<Esc>i
-inoremap [ []<Esc>i
-inoremap { {}<Esc>i
-inoremap {<CR> {<CR>}<Esc>O
-inoremap ' ''<esc>i
-inoremap " ""<esc>i
+" inoremap ( ()<Esc>i
+" inoremap [ []<Esc>i
+" inoremap { {}<Esc>i
+" inoremap {<CR> {<CR>}<Esc>O
+" inoremap ' ''<esc>i
+" inoremap " ""<esc>i
 
 " ----------------------------------------------------------------------------
 " Appearance
@@ -175,9 +192,8 @@ vnoremap k gk
 " window navigation
 nnoremap <tab>   <c-w>w
 nnoremap <S-tab> <c-w>W
-
-" easy close
-nnoremap <F12> :q!<cr>
+nnoremap K :bd<cr>
+nnoremap <C-d> :q!<cr>
 
 " quickfix navigation
 nnoremap ]q :cnext<cr>zz
@@ -191,9 +207,9 @@ nnoremap <F8> :TagbarToggle<cr>
 
 " fzf searches
 " nnoremap <leader>f :FZF<cr>
-nnoremap <leader>f :FZF<cr>
+nnoremap <leader>f :GFiles<cr>
+nnoremap <leader>F :FZF<cr>
 nnoremap <nowait><leader>b :Buffers<cr>
-nnoremap <leader>g :GFiles<cr>
 nnoremap <leader>t :Tags<cr>
 
 " writing
@@ -209,6 +225,7 @@ nnoremap <leader>r :%s//gc<left><left><left>
 " edit the .vimrc file
 nnoremap <leader>ev :e ~/.vim/vimrc<cr>
 nnoremap <leader>eb :e ~/.bashrc<cr>
+nnoremap <leader>es :e ~/.vim/UltiSnips/php.snippets<cr>
 nnoremap <leader>so :so %<cr>
 
 " toggle spell check
