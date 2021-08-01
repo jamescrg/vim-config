@@ -16,6 +16,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'junegunn/vim-peekaboo'
 Plug 'preservim/tagbar'
 Plug 'tpope/vim-vinegar'
+" Plug 'preservim/nerdtree'
 
 " behavior / tools
 Plug 'vim-scripts/vim-auto-save'
