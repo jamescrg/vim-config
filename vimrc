@@ -16,7 +16,6 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'junegunn/vim-peekaboo'
 Plug 'preservim/tagbar'
 Plug 'tpope/vim-vinegar'
-" Plug 'preservim/nerdtree'
 
 " behavior / tools
 Plug 'vim-scripts/vim-auto-save'
@@ -25,6 +24,7 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-surround'
 Plug 'alvan/vim-closetag'
 Plug 'SirVer/ultisnips'
+" Plug 'jiangmiao/auto-pairs'
 
 " languages
 Plug 'StanAngeloff/php.vim'
@@ -143,14 +143,6 @@ set wildignore+=vendor/**,tags,.git/**,libraries/**,storage/**,test/**
 " hide netrw from buffer-toggle
 let g:netrw_altfile = 1
 
-" automatically close pairs
-" inoremap ( ()<Esc>i
-" inoremap [ []<Esc>i
-" inoremap { {}<Esc>i
-" inoremap {<CR> {<CR>}<Esc>O
-" inoremap ' ''<esc>i
-" inoremap " ""<esc>i
-
 " ----------------------------------------------------------------------------
 " Appearance
 " ----------------------------------------------------------------------------
@@ -240,3 +232,17 @@ iab icd ## <c-r>=strftime('%Y-%m-%d')<cr>
 
 " search for visually selected text
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+
+" mappings to automatically close pairs
+inoremap (( ()<Esc>i
+inoremap [[ []<Esc>i
+inoremap {{ {<cr><cr>}<Esc>ki
+inoremap {<CR> {<CR>}<Esc>O
+inoremap '' ''<esc>i
+inoremap "" ""<esc>i
+
+" maping to add a semicolon at the end of a line
+nnoremap <leader>; $a;<esc>
+
+" mappings to insert object operator
+inoremap .. ->
