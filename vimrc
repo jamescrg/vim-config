@@ -22,7 +22,6 @@ Plug 'vim-scripts/vim-auto-save'
 Plug 'tpope/vim-commentary'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-surround'
-Plug 'alvan/vim-closetag'
 Plug 'SirVer/ultisnips'
 " Plug 'jiangmiao/auto-pairs'
 
@@ -58,18 +57,13 @@ colorscheme seoul256-light
 
 
 " ----------------------------------------------------------------------------
-" NERDTree
+" UltiSnips Config
 " ----------------------------------------------------------------------------
 
-" Start NERDTree and put the cursor back in the other window.
-" autocmd VimEnter * NERDTree | wincmd p
+let g:UltiSnipsExpandTrigger="<c-l>"
+let g:UltiSnipsJumpForwardTrigger="<c-l>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
-" " If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
-" autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
-"     \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
-
-" nnoremap <C-t> :NERDTreeToggle<CR>
-" nnoremap <C-n> :NERDTreeFind<CR>
 
 " ----------------------------------------------------------------------------
 " Airline
@@ -175,6 +169,7 @@ let mapleader = " "
 inoremap jj <esc>
 inoremap jk <esc>
 inoremap kj <esc>
+inoremap kk <esc>
 
 " j and k by lines on screen
 nnoremap j gj
@@ -189,8 +184,8 @@ nnoremap K :bd<cr>
 nnoremap <C-d> :q!<cr>
 
 " quickfix navigation
-nnoremap ]q :cnext<cr>zz
-nnoremap [q :cprev<cr>zz
+nnoremap <F3> :cprev<cr>zz
+nnoremap <F4> :cnext<cr>zz
 
 " search highlighting
 noremap <cr> :noh<cr><cr>
@@ -213,7 +208,8 @@ nnoremap <leader>T :Toc<cr>
 nnoremap * *N
 
 " easy search and replace
-nnoremap <leader>r :%s//gc<left><left><left>
+nnoremap <C-h> :%s//gc<left><left><left>
+nnoremap <C-f> :vimgrep '' **/*<left><left><left><left><left><left>
 
 " edit the .vimrc file
 nnoremap <leader>ev :e ~/.vim/vimrc<cr>
@@ -227,22 +223,20 @@ nnoremap <leader>ss :set spell!<cr>
 " toggle line wrap
 nnoremap <leader>sw :set wrap!<cr>
 
+" toggle line numbers
+nnoremap <leader>sn :set number!<cr>
+
 " insert text
 iab icd ## <c-r>=strftime('%Y-%m-%d')<cr>
 
 " search for visually selected text
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 
-" mappings to automatically close pairs
-inoremap (( ()<Esc>i
-inoremap [[ []<Esc>i
-inoremap {{ {<cr><cr>}<Esc>ki
-inoremap {<CR> {<CR>}<Esc>O
-inoremap '' ''<esc>i
-inoremap "" ""<esc>i
+" automatically close brackets
+inoremap {<cr> {<cr>}<esc>O
 
-" maping to add a semicolon at the end of a line
+" add a semicolon at the end of a line
 nnoremap <leader>; $a;<esc>
 
-" mappings to insert object operator
-inoremap .. ->
+" insert object operator
+inoremap >> ->
