@@ -174,9 +174,6 @@ inoremap jk <esc>
 inoremap kj <esc>
 inoremap kk <esc>
 
-" easy surrounds
-nmap s ysiw
-
 " j and k by lines on screen
 nnoremap j gj
 nnoremap k gk
@@ -190,7 +187,6 @@ nnoremap <C-d> :q!<cr>
 nnoremap <S-k> :bd<cr>
 nnoremap <tab> <C-w>w
 nnoremap <S-tab> <C-w>W
-nnoremap <bs> <C-^>
 
 " terminal navigation
 nnoremap \ :vert term<cr>
