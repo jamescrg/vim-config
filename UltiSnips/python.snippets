@@ -1,4 +1,12 @@
-snippet pr "print"
+snippet p "print"
 print($1)
 endsnippet
-	
+
+snippet pp "print"
+pprint($1)
+endsnippet
+
+snippet dd "dump"
+import app.util as util
+return util.dump($1)
+endsnippet

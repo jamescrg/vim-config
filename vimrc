@@ -9,7 +9,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'junegunn/seoul256.vim'
 
 " interface
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -23,7 +23,9 @@ Plug 'tpope/vim-commentary'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-surround'
 Plug 'SirVer/ultisnips'
-" Plug 'jiangmiao/auto-pairs'
+Plug 'ervandew/supertab'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-repeat'
 
 " languages
 Plug 'StanAngeloff/php.vim'
@@ -45,6 +47,7 @@ call plug#end()
 
 " allow sytax highlightking
 syntax enable
+" setfiletype htmldjango
 
 " seoul256 light
 " ---------------------------
@@ -63,7 +66,7 @@ colorscheme seoul256-light
 let g:UltiSnipsExpandTrigger="<c-l>"
 let g:UltiSnipsJumpForwardTrigger="<c-l>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
+let g:SuperTabDefaultCompletionType = "<c-n>"
 
 " ----------------------------------------------------------------------------
 " Airline
@@ -120,7 +123,7 @@ set softtabstop=4
 set expandtab
 set autoindent
 set shiftround 
-autocmd BufRead,BufNewFile *.htm,*.html,*.blade.php setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd BufRead,BufNewFile *.htm,*.html,*.blade.php,*.css setlocal tabstop=2 shiftwidth=2 softtabstop=2
 
 " backspace
 set backspace=indent,eol,start
@@ -132,7 +135,7 @@ let g:fzf_preview_window = ''
 set undofile
 set undodir=~/.vim/undodir
 
-set wildignore+=vendor/**,tags,.git/**,libraries/**,storage/**,test/**
+set wildignore+=vendor/**,tags,.git/**,libraries/**,storage/**,app/migrations/**,app/__pycache__/**,config/__pycache__/**
 
 " hide netrw from buffer-toggle
 let g:netrw_altfile = 1
@@ -171,21 +174,33 @@ inoremap jk <esc>
 inoremap kj <esc>
 inoremap kk <esc>
 
+" easy surrounds
+nmap s ysiw
+
 " j and k by lines on screen
 nnoremap j gj
 nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 
-" window navigation
-nnoremap <tab>   <c-w>w
-nnoremap <S-tab> <c-w>W
-nnoremap K :bd<cr>
+" easy exit
 nnoremap <C-d> :q!<cr>
+
+" window navigation
+nnoremap <S-k> :bd<cr>
+nnoremap <tab> <C-w>w
+nnoremap <S-tab> <C-w>W
+nnoremap <bs> <C-^>
+
+" terminal navigation
+nnoremap \ :vert term<cr>
+tnoremap <tab> <C-w>w
+tnoremap <S-tab> <C-w>W
 
 " quickfix navigation
 nnoremap <F3> :cprev<cr>zz
 nnoremap <F4> :cnext<cr>zz
+nnoremap <F5> @@
 
 " search highlighting
 noremap <cr> :noh<cr><cr>
@@ -214,7 +229,7 @@ nnoremap <C-f> :vimgrep '' **/*<left><left><left><left><left><left>
 " edit the .vimrc file
 nnoremap <leader>ev :e ~/.vim/vimrc<cr>
 nnoremap <leader>eb :e ~/.bashrc<cr>
-nnoremap <leader>es :e ~/.vim/UltiSnips/php.snippets<cr>
+nnoremap <leader>es :e ~/.vim/UltiSnips/python.snippets<cr>
 nnoremap <leader>so :so %<cr>
 
 " toggle spell check
@@ -227,16 +242,27 @@ nnoremap <leader>sw :set wrap!<cr>
 nnoremap <leader>sn :set number!<cr>
 
 " insert text
+func Eatchar(pat)
+    let c = nr2char(getchar(0))
+    return (c =~ a:pat) ? '' : c
+endfunc
 iab icd ## <c-r>=strftime('%Y-%m-%d')<cr>
+iab ppr pprint()<left><c-r>=Eatchar('\s')<cr>
+iab pr print()<left><c-r>=Eatchar('\s')<cr>
 
 " search for visually selected text
-vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>N
 
 " automatically close brackets
 inoremap {<cr> {<cr>}<esc>O
 
 " add a semicolon at the end of a line
-nnoremap <leader>; $a;<esc>
+" nnoremap <leader>; $a;<esc>
 
-" insert object operator
-inoremap >> ->
+" coerce snake case
+" nnoremap <F2> crs
+
+" func Refresh()
+"     :silent !touch config/wsgi.py<cr> <bar> redraw!<cr>
+" endfunc
+nnoremap <F5> :silent !touch config/wsgi.py<cr> <bar> :redraw!<cr>
