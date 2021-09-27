@@ -7,6 +7,7 @@ call plug#begin('~/.vim/plugged')
 
 " color schemes
 Plug 'junegunn/seoul256.vim'
+Plug 'habamax/vim-bronzage'
 
 " interface
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -66,7 +67,7 @@ colorscheme seoul256-light
 let g:UltiSnipsExpandTrigger="<c-l>"
 let g:UltiSnipsJumpForwardTrigger="<c-l>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-let g:SuperTabDefaultCompletionType = "<c-n>"
+" let g:SuperTabDefaultCompletionType = "<c-n>"
 
 " ----------------------------------------------------------------------------
 " Airline
@@ -171,8 +172,6 @@ let mapleader = " "
 " escaping
 inoremap jj <esc>
 inoremap jk <esc>
-inoremap kj <esc>
-inoremap kk <esc>
 
 " j and k by lines on screen
 nnoremap j gj
@@ -224,9 +223,16 @@ nnoremap <C-f> :vimgrep '' **/*<left><left><left><left><left><left>
 
 " edit the .vimrc file
 nnoremap <leader>ev :e ~/.vim/vimrc<cr>
-nnoremap <leader>eb :e ~/.bashrc<cr>
-nnoremap <leader>es :e ~/.vim/UltiSnips/python.snippets<cr>
 nnoremap <leader>so :so %<cr>
+
+" edit the bash file
+nnoremap <leader>eb :e ~/.bashrc<cr>
+
+" edit snippets
+nnoremap <leader>es :e ~/.vim/UltiSnips/python.snippets<cr>
+
+" open the pyp directory
+nnoremap <leader>p :Ex /home/james/pyp<cr>
 
 " toggle spell check
 nnoremap <leader>ss :set spell!<cr>
