@@ -136,7 +136,7 @@ let g:fzf_preview_window = ''
 set undofile
 set undodir=~/.vim/undodir
 
-set wildignore+=vendor/**,tags,.git/**,libraries/**,storage/**,app/migrations/**,app/__pycache__/**,config/__pycache__/**
+set wildignore+=vendor/**,tags,.git/**,libraries/**,storage/**,**/migrations/**,**/__pycache__/**
 
 " hide netrw from buffer-toggle
 let g:netrw_altfile = 1
@@ -205,8 +205,7 @@ nnoremap <F8> :TagbarToggle<cr>
 
 " fzf searches
 " nnoremap <leader>f :FZF<cr>
-nnoremap <leader>f :GFiles<cr>
-nnoremap <leader>F :FZF<cr>
+nnoremap <leader>f :FZF<cr>
 nnoremap <nowait><leader>b :Buffers<cr>
 nnoremap <leader>t :Tags<cr>
 
@@ -255,16 +254,15 @@ iab pr print()<left><c-r>=Eatchar('\s')<cr>
 " search for visually selected text
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>N
 
-" automatically close brackets
+" automatically close pairs
 inoremap {<cr> {<cr>}<esc>O
+inoremap {{ {}<left>
+inoremap [[ []<left>
+inoremap (( ()<left>
+inoremap '' ''<left>
 
 " add a semicolon at the end of a line
 " nnoremap <leader>; $a;<esc>
 
-" coerce snake case
-" nnoremap <F2> crs
-
-" func Refresh()
-"     :silent !touch config/wsgi.py<cr> <bar> redraw!<cr>
-" endfunc
+" reload django apps
 nnoremap <F5> :silent !touch config/wsgi.py<cr> <bar> :redraw!<cr>
