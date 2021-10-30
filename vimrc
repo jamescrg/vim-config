@@ -7,15 +7,12 @@ call plug#begin('~/.vim/plugged')
 
 " color schemes
 Plug 'junegunn/seoul256.vim'
-Plug 'habamax/vim-bronzage'
 
 " interface
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'junegunn/vim-peekaboo'
-Plug 'preservim/tagbar'
 Plug 'tpope/vim-vinegar'
 
 " behavior / tools
@@ -29,15 +26,11 @@ Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-repeat'
 
 " languages
-Plug 'StanAngeloff/php.vim'
 Plug 'plasticboy/vim-markdown'
-Plug 'jwalton512/vim-blade'
 
 " prose
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
-
-Plug 'mattn/calendar-vim'
 
 call plug#end()
 
@@ -48,7 +41,7 @@ call plug#end()
 
 " allow sytax highlightking
 syntax enable
-" setfiletype htmldjango
+
 
 " seoul256 light
 " ---------------------------
@@ -75,18 +68,6 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 autocmd VimEnter * silent AirlineToggleWhitespace
 " let g:airline#extensions#tabline#enabled = 1
-
-augroup blade
-autocmd!
-autocmd BufNewFile,BufRead *.blade.php set filetype=blade
-augroup END
-
-
-" ----------------------------------------------------------------------------
-" Closetags
-" ----------------------------------------------------------------------------
-
-let g:closetag_filenames = '*.html,*.php'
 
 
 " ----------------------------------------------------------------------------
@@ -124,7 +105,9 @@ set softtabstop=4
 set expandtab
 set autoindent
 set shiftround 
-autocmd BufRead,BufNewFile *.htm,*.html,*.blade.php,*.css setlocal tabstop=2 shiftwidth=2 softtabstop=2
+
+autocmd BufRead,BufNewFile *.html,*.css setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd BufRead,BufNewFile *.html set filetype=htmldjango
 
 " backspace
 set backspace=indent,eol,start
@@ -136,7 +119,9 @@ let g:fzf_preview_window = ''
 set undofile
 set undodir=~/.vim/undodir
 
-set wildignore+=vendor/**,tags,.git/**,libraries/**,storage/**,**/migrations/**,**/__pycache__/**
+set wildignore+=tags,.git/**
+set wildignore+=**/migrations/**,**/__pycache__/**
+set wildignore+=static/bootstrap-3.3.7/**,static/images/**
 
 " hide netrw from buffer-toggle
 let g:netrw_altfile = 1
@@ -187,31 +172,23 @@ nnoremap <S-k> :bd<cr>
 nnoremap <tab> <C-w>w
 nnoremap <S-tab> <C-w>W
 
-" terminal navigation
-nnoremap \ :vert term<cr>
-tnoremap <tab> <C-w>w
-tnoremap <S-tab> <C-w>W
-
 " quickfix navigation
-nnoremap <F3> :cprev<cr>zz
-nnoremap <F4> :cnext<cr>zz
-nnoremap <F5> @@
+nnoremap <leader>c :copen 30<cr>
+nnoremap <F3> :cnext<cr>zz
+nnoremap <F4> @@
 
 " search highlighting
 noremap <cr> :noh<cr><cr>
-
-" tagbar toggle
-nnoremap <F8> :TagbarToggle<cr>
 
 " fzf searches
 " nnoremap <leader>f :FZF<cr>
 nnoremap <leader>f :FZF<cr>
 nnoremap <nowait><leader>b :Buffers<cr>
-nnoremap <leader>t :Tags<cr>
+nnoremap <leader>T :Tags<cr>
 
 " writing
-nnoremap <leader>G :Goyo<cr>
-nnoremap <leader>T :Toc<cr>
+nnoremap <leader>g :Goyo<cr>
+nnoremap <leader>t :Toc<cr>
 
 " search for word under cursor, including first word
 nnoremap * *N
@@ -220,14 +197,11 @@ nnoremap * *N
 nnoremap <C-h> :%s//gc<left><left><left>
 nnoremap <C-f> :vimgrep '' **/*<left><left><left><left><left><left>
 
-" edit the .vimrc file
+" easy edits
 nnoremap <leader>ev :e ~/.vim/vimrc<cr>
 nnoremap <leader>so :so %<cr>
-
-" edit the bash file
 nnoremap <leader>eb :e ~/.bashrc<cr>
-
-" edit snippets
+nnoremap <leader>et :e ~/.tmux.conf<cr>
 nnoremap <leader>es :e ~/.vim/UltiSnips/python.snippets<cr>
 
 " open the pyp directory
@@ -253,16 +227,6 @@ iab pr print()<left><c-r>=Eatchar('\s')<cr>
 
 " search for visually selected text
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>N
-
-" automatically close pairs
-inoremap {<cr> {<cr>}<esc>O
-inoremap {{ {}<left>
-inoremap [[ []<left>
-inoremap (( ()<left>
-inoremap '' ''<left>
-
-" add a semicolon at the end of a line
-" nnoremap <leader>; $a;<esc>
 
 " reload django apps
 nnoremap <F5> :silent !touch config/wsgi.py<cr> <bar> :redraw!<cr>
