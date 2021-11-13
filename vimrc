@@ -21,9 +21,11 @@ Plug 'tpope/vim-commentary'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-surround'
 Plug 'SirVer/ultisnips'
-Plug 'ervandew/supertab'
+" Plug 'ervandew/supertab'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-repeat'
+Plug 'fcpg/vim-altscreen'
+
 
 " languages
 Plug 'plasticboy/vim-markdown'
@@ -122,9 +124,11 @@ set undodir=~/.vim/undodir
 set wildignore+=tags,.git/**
 set wildignore+=**/migrations/**,**/__pycache__/**
 set wildignore+=static/bootstrap-3.3.7/**,static/images/**
+set wildignore+=static/admin/**
 
 " hide netrw from buffer-toggle
 let g:netrw_altfile = 1
+
 
 " ----------------------------------------------------------------------------
 " Appearance
@@ -172,8 +176,14 @@ nnoremap <S-k> :bd<cr>
 nnoremap <tab> <C-w>w
 nnoremap <S-tab> <C-w>W
 
+" line navigation
+nnoremap <S-l> $
+nnoremap <S-h> ^
+nnoremap , f_
+
 " quickfix navigation
 nnoremap <leader>c :copen 30<cr>
+nnoremap <F2> :cprevious<cr>zz
 nnoremap <F3> :cnext<cr>zz
 nnoremap <F4> @@
 
@@ -229,4 +239,5 @@ iab pr print()<left><c-r>=Eatchar('\s')<cr>
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>N
 
 " reload django apps
-nnoremap <F5> :silent !touch config/wsgi.py<cr> <bar> :redraw!<cr>
+" nnoremap <F5> :silent !touch config/wsgi.py<cr> <bar> :redraw!<cr>
+nnoremap <F5> :silent !touch config/wsgi.py<cr>
