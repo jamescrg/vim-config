@@ -7,6 +7,7 @@ call plug#begin('~/.vim/plugged')
 
 " color schemes
 Plug 'junegunn/seoul256.vim'
+Plug 'sainnhe/everforest'
 
 " interface
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -41,6 +42,10 @@ call plug#end()
 " Colorscheme
 " ----------------------------------------------------------------------------
 
+if has('termguicolors')
+    set termguicolors
+endif
+
 " allow sytax highlightking
 syntax enable
 
@@ -49,10 +54,20 @@ syntax enable
 " ---------------------------
 "   Range:   252 (darkest) ~ 256 (lightest)
 "   Default: 253
-let g:seoul256_background = 254
-let g:airline_theme='zenburn'
-set background=light
-colorscheme seoul256-light
+" let g:seoul256_background = 254
+" let g:airline_theme='zenburn'
+" set background=light
+" colorscheme seoul256-light
+
+" seoul256 light
+" ---------------------------
+" Range: soft, medium, hard
+" Default: medium
+let g:everforest_background = 'soft'
+let g:airline_theme = 'everforest'
+set background=dark
+colorscheme everforest
+
 
 
 " ----------------------------------------------------------------------------
