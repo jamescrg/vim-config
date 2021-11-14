@@ -26,6 +26,7 @@ Plug 'SirVer/ultisnips'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-repeat'
 Plug 'fcpg/vim-altscreen'
+Plug 'preservim/tagbar'
 
 
 " languages
@@ -193,6 +194,10 @@ nnoremap <S-k> :bd<cr>
 nnoremap <tab> <C-w>w
 nnoremap <S-tab> <C-w>W
 
+" document navigation
+nnoremap <leader>T :Toc<cr>
+nnoremap <leader>t :TagbarToggle<cr>
+
 " line navigation
 nnoremap <S-l> $
 nnoremap <S-h> ^
@@ -211,11 +216,10 @@ noremap <cr> :noh<cr><cr>
 " nnoremap <leader>f :FZF<cr>
 nnoremap <leader>f :FZF<cr>
 nnoremap <nowait><leader>b :Buffers<cr>
-nnoremap <leader>T :Tags<cr>
+nnoremap <leader>F :Tags<cr>
 
 " writing
 nnoremap <leader>g :Goyo<cr>
-nnoremap <leader>t :Toc<cr>
 
 " search for word under cursor, including first word
 nnoremap * *N
