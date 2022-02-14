@@ -5,36 +5,73 @@
 
 call plug#begin('~/.vim/plugged')
 
+" ---------------------------------------
 " color schemes
+" ---------------------------------------
 Plug 'junegunn/seoul256.vim'
 Plug 'sainnhe/everforest'
+Plug 'altercation/vim-colors-solarized'
+Plug 'morhetz/gruvbox'
 
+
+" ---------------------------------------
 " interface
+" ---------------------------------------
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-vinegar'
 
+
+" ---------------------------------------
 " behavior / tools
+" ---------------------------------------
+
+"  auto save
 Plug 'vim-scripts/vim-auto-save'
+
+" comment bindings
 Plug 'tpope/vim-commentary'
+
+" auto update tags file
 Plug 'ludovicchabant/vim-gutentags'
+
+" surround with quotes or brackets
 Plug 'tpope/vim-surround'
+
+" snippets
 Plug 'SirVer/ultisnips'
-" Plug 'ervandew/supertab'
+
+" coerce case (e.g. snake to camel)
 Plug 'tpope/vim-abolish'
+
+" repeat plugin actions with repeat key
 Plug 'tpope/vim-repeat'
+
+" run django reload script without screen blank
 Plug 'fcpg/vim-altscreen'
+
+" navigate a long file
 Plug 'preservim/tagbar'
 
+" better autocomplete, always on
+Plug 'maralla/completor.vim'
 
-" languages
-Plug 'plasticboy/vim-markdown'
+" code validation
+Plug 'maralla/validator.vim'
 
+" org mode
+Plug 'jceb/vim-orgmode'
+
+" ---------------------------------------
 " prose
+" ---------------------------------------
+
+Plug 'plasticboy/vim-markdown'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
+Plug 'ron89/thesaurus_query.vim'
 
 call plug#end()
 
@@ -43,34 +80,57 @@ call plug#end()
 " Colorscheme
 " ----------------------------------------------------------------------------
 
-if has('termguicolors')
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-    set termguicolors
-endif
+ " if has('termguicolors')
+"     set termguicolors
+" endif
 
 " allow sytax highlightking
 syntax enable
 
 
+" ---------------------------
 " seoul256 light
 " ---------------------------
 "   Range:   252 (darkest) ~ 256 (lightest)
 "   Default: 253
-let g:seoul256_background = 252
+" ---------------------------
+let g:seoul256_background = 253
 let g:airline_theme='zenburn'
 set background=light
 colorscheme seoul256-light
 
-" seoul256 light
+" ---------------------------
+" everforest
 " ---------------------------
 " Range: soft, medium, hard
 " Default: medium
+" ---------------------------
+" set termguicolors
 " let g:everforest_background = 'soft'
 " let g:airline_theme = 'everforest'
 " set background=dark
 " colorscheme everforest
 
+" ---------------------------
+" solarized light
+" ---------------------------
+"  contrast options: low, medium, high
+" ---------------------------
+" set background=light
+" let g:solarized_contrast='high'
+" colorscheme solarized
+
+" ---------------------------
+" gruvbox dark
+" ---------------------------
+"  contrast options: soft, medium, hard
+" ---------------------------
+ " if has('termguicolors')
+ "    set termguicolors
+" endif
+" set background=dark
+" let g:gruvbox_contrast_dark='soft'
+" colorscheme gruvbox
 
 
 " ----------------------------------------------------------------------------
@@ -80,14 +140,37 @@ colorscheme seoul256-light
 let g:UltiSnipsExpandTrigger="<c-l>"
 let g:UltiSnipsJumpForwardTrigger="<c-l>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-" let g:SuperTabDefaultCompletionType = "<c-n>"
 
 " ----------------------------------------------------------------------------
 " Airline
 " ----------------------------------------------------------------------------
 
 autocmd VimEnter * silent AirlineToggleWhitespace
-" let g:airline#extensions#tabline#enabled = 1
+
+" show airline during goyo session
+" function! s:goyo_enter()
+"     AirlineToggle
+" endfunction
+" autocmd! User GoyoEnter nested call <SID>goyo_enter()
+
+" ----------------------------------------------------------------------------
+" Completor
+" ----------------------------------------------------------------------------
+
+autocmd Filetype markdown let g:completor_auto_trigger = 0
+let g:completor_python_binary = '/home/james/.local/lib/python3.8/site-packages/jedi'
+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+
+
+" ----------------------------------------------------------------------------
+" Validator
+" ----------------------------------------------------------------------------
+
+let g:validator_python_checkers = ['flake8']
+let g:validator_css_checkers = ['csslint']
 
 
 " ----------------------------------------------------------------------------
@@ -125,9 +208,12 @@ set softtabstop=4
 set expandtab
 set autoindent
 set shiftround 
+set comments=fb:-,fb:*
+set nowrapscan
 
 autocmd BufRead,BufNewFile *.html,*.css setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd BufRead,BufNewFile *.html set filetype=htmldjango
+" autocmd BufRead,BufNewFile *.py set textwidth=79
 
 " backspace
 set backspace=indent,eol,start
@@ -146,6 +232,11 @@ set wildignore+=static/admin/**
 
 " hide netrw from buffer-toggle
 let g:netrw_altfile = 1
+
+" auto close pairs when on separate lines
+inoremap {<cr> {<cr>}<esc>O
+inoremap [<cr> [<cr>]<esc>O
+inoremap (<cr> (<cr>)<esc>O
 
 
 " ----------------------------------------------------------------------------
@@ -168,6 +259,11 @@ set display=lastline
 " eliminate delay leaving insert mode
 set ttimeoutlen=50
 
+" default width value for goyo
+let g:goyo_width=100
+
+" highlight misspelled words
+set spell
 
 " ----------------------------------------------------------------------------
 " Mappings
@@ -194,32 +290,29 @@ nnoremap <S-k> :bd<cr>
 nnoremap <tab> <C-w>w
 nnoremap <S-tab> <C-w>W
 
-" document navigation
-nnoremap <leader>T :Toc<cr>
-nnoremap <leader>t :TagbarToggle<cr>
-
 " line navigation
 nnoremap <S-l> $
 nnoremap <S-h> ^
-nnoremap , f_
 
 " quickfix navigation
 nnoremap <leader>c :copen 30<cr>
-nnoremap <F2> :cprevious<cr>zz
-nnoremap <F3> :cnext<cr>zz
-nnoremap <F4> @@
+nnoremap [q :cprevious<cr>zz
+nnoremap ]q :cnext<cr>zz
 
 " search highlighting
 noremap <cr> :noh<cr><cr>
 
 " fzf searches
-" nnoremap <leader>f :FZF<cr>
 nnoremap <leader>f :FZF<cr>
 nnoremap <nowait><leader>b :Buffers<cr>
-nnoremap <leader>F :Tags<cr>
 
 " writing
 nnoremap <leader>g :Goyo<cr>
+nnoremap <leader>t :Toc<cr>
+nnoremap , :ThesaurusQueryLookupCurrentWord<cr>
+
+" Jump list (to newer position)
+nnoremap <C-p> <C-i>
 
 " search for word under cursor, including first word
 nnoremap * *N
@@ -260,5 +353,6 @@ iab pr print()<left><c-r>=Eatchar('\s')<cr>
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>N
 
 " reload django apps
-" nnoremap <F5> :silent !touch config/wsgi.py<cr> <bar> :redraw!<cr>
 nnoremap <F5> :silent !touch config/wsgi.py<cr>
+
+
