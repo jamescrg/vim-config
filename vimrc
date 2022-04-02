@@ -92,10 +92,10 @@ syntax enable
 "   Range:   252 (darkest) ~ 256 (lightest)
 "   Default: 253
 " ---------------------------
-" let g:seoul256_background = 253
-" let g:airline_theme='zenburn'
-" set background=light
-" colorscheme seoul256-light
+let g:seoul256_background = 253
+let g:airline_theme='zenburn'
+set background=light
+colorscheme seoul256-light
 
 " ---------------------------
 " everforest
@@ -103,11 +103,11 @@ syntax enable
 " Range: soft, medium, hard
 " Default: medium
 " ---------------------------
-set termguicolors
-let g:everforest_background = 'medium'
-let g:airline_theme = 'everforest'
-set background=dark
-colorscheme everforest
+" set termguicolors
+" let g:everforest_background = 'medium'
+" let g:airline_theme = 'everforest'
+" set background=dark
+" colorscheme everforest
 
 " ---------------------------
 " solarized light
