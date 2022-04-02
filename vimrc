@@ -40,9 +40,6 @@ Plug 'ludovicchabant/vim-gutentags'
 " surround with quotes or brackets
 Plug 'tpope/vim-surround'
 
-" snippets
-Plug 'SirVer/ultisnips'
-
 " coerce case (e.g. snake to camel)
 Plug 'tpope/vim-abolish'
 
@@ -61,8 +58,9 @@ Plug 'maralla/completor.vim'
 " code validation
 Plug 'maralla/validator.vim'
 
-" org mode
-Plug 'jceb/vim-orgmode'
+" html shortcuts
+Plug 'mattn/emmet-vim'
+
 
 " ---------------------------------------
 " prose
@@ -94,10 +92,10 @@ syntax enable
 "   Range:   252 (darkest) ~ 256 (lightest)
 "   Default: 253
 " ---------------------------
-let g:seoul256_background = 253
-let g:airline_theme='zenburn'
-set background=light
-colorscheme seoul256-light
+" let g:seoul256_background = 253
+" let g:airline_theme='zenburn'
+" set background=light
+" colorscheme seoul256-light
 
 " ---------------------------
 " everforest
@@ -105,11 +103,11 @@ colorscheme seoul256-light
 " Range: soft, medium, hard
 " Default: medium
 " ---------------------------
-" set termguicolors
-" let g:everforest_background = 'soft'
-" let g:airline_theme = 'everforest'
-" set background=dark
-" colorscheme everforest
+set termguicolors
+let g:everforest_background = 'medium'
+let g:airline_theme = 'everforest'
+set background=dark
+colorscheme everforest
 
 " ---------------------------
 " solarized light
@@ -134,24 +132,11 @@ colorscheme seoul256-light
 
 
 " ----------------------------------------------------------------------------
-" UltiSnips Config
-" ----------------------------------------------------------------------------
-
-let g:UltiSnipsExpandTrigger="<c-l>"
-let g:UltiSnipsJumpForwardTrigger="<c-l>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-" ----------------------------------------------------------------------------
 " Airline
 " ----------------------------------------------------------------------------
 
 autocmd VimEnter * silent AirlineToggleWhitespace
 
-" show airline during goyo session
-" function! s:goyo_enter()
-"     AirlineToggle
-" endfunction
-" autocmd! User GoyoEnter nested call <SID>goyo_enter()
 
 " ----------------------------------------------------------------------------
 " Completor
@@ -184,7 +169,7 @@ set mouse=a
 set noswapfile
 
 " search
-set smartcase    
+set smartcase
 set incsearch
 set hlsearch
 
@@ -201,19 +186,17 @@ let g:auto_save = 1
 let g:auto_save_in_insert_mode = 0
 
 " tabs
-set tabstop=4  
-set softtabstop=4  
+set tabstop=4
+set softtabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
 set autoindent
-set shiftround 
+set shiftround
 set comments=fb:-,fb:*
-set nowrapscan
 
 autocmd BufRead,BufNewFile *.html,*.css setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd BufRead,BufNewFile *.html set filetype=htmldjango
-" autocmd BufRead,BufNewFile *.py set textwidth=79
 
 " backspace
 set backspace=indent,eol,start
@@ -238,6 +221,18 @@ inoremap {<cr> {<cr>}<esc>O
 inoremap [<cr> [<cr>]<esc>O
 inoremap (<cr> (<cr>)<esc>O
 
+"prevent signs from opening another gutter
+set signcolumn=number
+
+" auto remove trailing whitespace
+autocmd BufWritePre * :%s/\s\+$//e
+
+" enable resizing splits in tmux
+if has("mouse_sgr")
+    set ttymouse=sgr
+else
+    set ttymouse=xterm2
+end
 
 " ----------------------------------------------------------------------------
 " Appearance
@@ -262,8 +257,8 @@ set ttimeoutlen=50
 " default width value for goyo
 let g:goyo_width=100
 
-" highlight misspelled words
-set spell
+" highlight misspelled words in markdown files
+autocmd FileType markdown setlocal spell
 
 " ----------------------------------------------------------------------------
 " Mappings
@@ -283,16 +278,17 @@ vnoremap j gj
 vnoremap k gk
 
 " easy exit
-nnoremap <C-d> :q!<cr>
+nnoremap <F12> :q!<cr>
+nnoremap <F11> :bd<cr>
 
 " window navigation
-nnoremap <S-k> :bd<cr>
 nnoremap <tab> <C-w>w
 nnoremap <S-tab> <C-w>W
+nnoremap <C-p> <C-i>
+nnoremap <leader>v :vsp<cr>
 
-" line navigation
-nnoremap <S-l> $
-nnoremap <S-h> ^
+" show tagbar
+nnoremap <F8> :TagbarToggle<CR>
 
 " quickfix navigation
 nnoremap <leader>c :copen 30<cr>
@@ -309,7 +305,7 @@ nnoremap <nowait><leader>b :Buffers<cr>
 " writing
 nnoremap <leader>g :Goyo<cr>
 nnoremap <leader>t :Toc<cr>
-nnoremap , :ThesaurusQueryLookupCurrentWord<cr>
+nnoremap <leader>d :ThesaurusQueryLookupCurrentWord<cr>
 
 " Jump list (to newer position)
 nnoremap <C-p> <C-i>
@@ -318,7 +314,7 @@ nnoremap <C-p> <C-i>
 nnoremap * *N
 
 " easy search and replace
-nnoremap <C-h> :%s//gc<left><left><left>
+" nnoremap <C-h> :%s//gc<left><left><left>
 nnoremap <C-f> :vimgrep '' **/*<left><left><left><left><left><left>
 
 " easy edits
@@ -337,17 +333,16 @@ nnoremap <leader>ss :set spell!<cr>
 " toggle line wrap
 nnoremap <leader>sw :set wrap!<cr>
 
-" toggle line numbers
-nnoremap <leader>sn :set number!<cr>
-
 " insert text
 func Eatchar(pat)
     let c = nr2char(getchar(0))
     return (c =~ a:pat) ? '' : c
 endfunc
 iab icd ## <c-r>=strftime('%Y-%m-%d')<cr>
-iab ppr pprint()<left><c-r>=Eatchar('\s')<cr>
+iab ppr from pprint import pprint<cr>pprint()<left><c-r>=Eatchar('\s')<cr>
 iab pr print()<left><c-r>=Eatchar('\s')<cr>
+iab cl console.log();<left><left><c-r>=Eatchar('\s')<cr>
+iab dd import config.helpers as helpers<cr>return helpers.dump()<left><c-r>=Eatchar('\s')<cr>
 
 " search for visually selected text
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>N
@@ -355,4 +350,5 @@ vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>N
 " reload django apps
 nnoremap <F5> :silent !touch config/wsgi.py<cr>
 
+vnoremap <F9> g<C-g>
 
