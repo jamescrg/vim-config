@@ -94,7 +94,7 @@ syntax enable
 "   Range:   252 (darkest) ~ 256 (lightest)
 "   Default: 253
 " ---------------------------
-let g:seoul256_background = 255
+let g:seoul256_background = 253
 let g:airline_theme='zenburn'
 set background=light
 colorscheme seoul256-light
