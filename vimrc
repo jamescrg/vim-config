@@ -12,6 +12,8 @@ Plug 'junegunn/seoul256.vim'
 Plug 'sainnhe/everforest'
 Plug 'altercation/vim-colors-solarized'
 Plug 'morhetz/gruvbox'
+Plug 'sainnhe/edge'
+Plug 'cseelus/vim-colors-lucid'
 
 
 " ---------------------------------------
@@ -61,7 +63,6 @@ Plug 'maralla/validator.vim'
 " html shortcuts
 Plug 'mattn/emmet-vim'
 
-
 " ---------------------------------------
 " prose
 " ---------------------------------------
@@ -86,13 +87,14 @@ call plug#end()
 syntax enable
 
 
+
 " ---------------------------
 " seoul256 light
 " ---------------------------
 "   Range:   252 (darkest) ~ 256 (lightest)
 "   Default: 253
 " ---------------------------
-let g:seoul256_background = 253
+let g:seoul256_background = 255
 let g:airline_theme='zenburn'
 set background=light
 colorscheme seoul256-light
@@ -115,7 +117,7 @@ colorscheme seoul256-light
 "  contrast options: low, medium, high
 " ---------------------------
 " set background=light
-" let g:solarized_contrast='high'
+" let g:solarized_contrast='medium'
 " colorscheme solarized
 
 " ---------------------------
@@ -123,8 +125,8 @@ colorscheme seoul256-light
 " ---------------------------
 "  contrast options: soft, medium, hard
 " ---------------------------
- " if has('termguicolors')
- "    set termguicolors
+" if has('termguicolors')
+"     set termguicolors
 " endif
 " set background=dark
 " let g:gruvbox_contrast_dark='soft'
@@ -189,7 +191,6 @@ let g:auto_save_in_insert_mode = 0
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
-set softtabstop=4
 set expandtab
 set autoindent
 set shiftround
