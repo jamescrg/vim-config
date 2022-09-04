@@ -352,4 +352,3 @@ vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>N
 nnoremap <F5> :silent !touch config/wsgi.py<cr>
 
 vnoremap <F9> g<C-g>
-
