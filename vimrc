@@ -39,20 +39,8 @@ Plug 'tpope/vim-commentary'
 " auto update tags file
 Plug 'ludovicchabant/vim-gutentags'
 
-" surround with quotes or brackets
-Plug 'tpope/vim-surround'
-
-" coerce case (e.g. snake to camel)
-Plug 'tpope/vim-abolish'
-
-" repeat plugin actions with repeat key
-Plug 'tpope/vim-repeat'
-
 " run django reload script without screen blank
 Plug 'fcpg/vim-altscreen'
-
-" navigate a long file
-Plug 'preservim/tagbar'
 
 " better autocomplete, always on
 Plug 'maralla/completor.vim'
@@ -60,8 +48,6 @@ Plug 'maralla/completor.vim'
 " code validation
 Plug 'maralla/validator.vim'
 
-" html shortcuts
-Plug 'mattn/emmet-vim'
 
 " ---------------------------------------
 " prose
@@ -79,13 +65,7 @@ call plug#end()
 " Colorscheme
 " ----------------------------------------------------------------------------
 
- " if has('termguicolors')
-"     set termguicolors
-" endif
-
-" allow sytax highlightking
 syntax enable
-
 
 
 " ---------------------------
@@ -94,43 +74,10 @@ syntax enable
 "   Range:   252 (darkest) ~ 256 (lightest)
 "   Default: 253
 " ---------------------------
-let g:seoul256_background = 253
+let g:seoul256_background = 254
 let g:airline_theme='zenburn'
 set background=light
 colorscheme seoul256-light
-
-" ---------------------------
-" everforest
-" ---------------------------
-" Range: soft, medium, hard
-" Default: medium
-" ---------------------------
-" set termguicolors
-" let g:everforest_background = 'medium'
-" let g:airline_theme = 'everforest'
-" set background=dark
-" colorscheme everforest
-
-" ---------------------------
-" solarized light
-" ---------------------------
-"  contrast options: low, medium, high
-" ---------------------------
-" set background=light
-" let g:solarized_contrast='medium'
-" colorscheme solarized
-
-" ---------------------------
-" gruvbox dark
-" ---------------------------
-"  contrast options: soft, medium, hard
-" ---------------------------
-" if has('termguicolors')
-"     set termguicolors
-" endif
-" set background=dark
-" let g:gruvbox_contrast_dark='soft'
-" colorscheme gruvbox
 
 
 " ----------------------------------------------------------------------------
@@ -179,9 +126,9 @@ set hlsearch
 set splitright
 set splitbelow
 
-" markdown behavior
-let g:vim_markdown_folding_disabled = 1
-let g:vim_markdown_toc_autofit = 1
+"# fold behavior
+set foldmethod=indent
+set foldlevel=99
 
 " autosave
 let g:auto_save = 1
@@ -196,8 +143,16 @@ set autoindent
 set shiftround
 set comments=fb:-,fb:*
 
+" html mode
 autocmd BufRead,BufNewFile *.html,*.css setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd BufRead,BufNewFile *.html set filetype=htmldjango
+
+" markdown mode
+let g:vim_markdown_folding_level = 99
+let g:vim_markdown_toc_autofit = 1
+autocmd BufRead,BufNewFile *.mkd normal zR
+autocmd BufRead,BufNewFile *.mkd setlocal wrap
+autocmd BufRead,BufNewFile *.mkd setlocal spell
 
 " backspace
 set backspace=indent,eol,start
@@ -243,8 +198,7 @@ end
 set number
 
 "wrap lines
-" set nowrap
-set wrap
+set nowrap
 
 " break at whitespace not words
 set linebreak
@@ -258,8 +212,6 @@ set ttimeoutlen=50
 " default width value for goyo
 let g:goyo_width=100
 
-" highlight misspelled words in markdown files
-autocmd FileType markdown setlocal spell
 
 " ----------------------------------------------------------------------------
 " Mappings
@@ -275,21 +227,18 @@ inoremap jk <esc>
 " j and k by lines on screen
 nnoremap j gj
 nnoremap k gk
+inoremap <down> <c-o>gj
+inoremap <up> <c-o>gk
 vnoremap j gj
 vnoremap k gk
 
-" easy exit
-nnoremap <C-d> :q!<cr>
+" easy kill buffer
 nnoremap <S-k> :bd<cr>
 
 " window navigation
 nnoremap <tab> <C-w>w
 nnoremap <S-tab> <C-w>W
 nnoremap <C-p> <C-i>
-nnoremap <leader>v :vsp<cr>
-
-" show tagbar
-nnoremap <F8> :TagbarToggle<CR>
 
 " quickfix navigation
 nnoremap <leader>c :copen 30<cr>
@@ -297,7 +246,7 @@ nnoremap [q :cprevious<cr>zz
 nnoremap ]q :cnext<cr>zz
 
 " search highlighting
-noremap <cr> :noh<cr><cr>
+noremap <cr> :noh<cr>
 
 " fzf searches
 nnoremap <leader>f :FZF<cr>
@@ -308,14 +257,10 @@ nnoremap <leader>g :Goyo<cr>
 nnoremap <leader>t :Toc<cr>
 nnoremap <leader>d :ThesaurusQueryLookupCurrentWord<cr>
 
-" Jump list (to newer position)
-nnoremap <C-p> <C-i>
-
 " search for word under cursor, including first word
 nnoremap * *N
 
 " easy search and replace
-" nnoremap <C-h> :%s//gc<left><left><left>
 nnoremap <C-f> :vimgrep '' **/*<left><left><left><left><left><left>
 
 " easy edits
@@ -323,32 +268,27 @@ nnoremap <leader>ev :e ~/.vim/vimrc<cr>
 nnoremap <leader>so :so %<cr>
 nnoremap <leader>eb :e ~/.bashrc<cr>
 nnoremap <leader>et :e ~/.tmux.conf<cr>
-nnoremap <leader>es :e ~/.vim/UltiSnips/python.snippets<cr>
 
-" open the pyp directory
-nnoremap <leader>p :Ex /home/james/pyp<cr>
+" search for visually selected text
+vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>N
 
-" toggle spell check
-nnoremap <leader>ss :set spell!<cr>
+" reload django apps
+nnoremap <F5> :silent !touch config/wsgi.py<cr>
 
-" toggle line wrap
-nnoremap <leader>sw :set wrap!<cr>
+" ----------------------------------------------------------------------------
+" Text Insertion
+" ----------------------------------------------------------------------------
 
 " insert text
 func Eatchar(pat)
     let c = nr2char(getchar(0))
     return (c =~ a:pat) ? '' : c
 endfunc
-iab icd ## <c-r>=strftime('%Y-%m-%d')<cr>
+
 iab ppr from pprint import pprint<cr>pprint()<left><c-r>=Eatchar('\s')<cr>
 iab pr print()<left><c-r>=Eatchar('\s')<cr>
 iab cl console.log();<left><left><c-r>=Eatchar('\s')<cr>
 iab dd import config.helpers as helpers<cr>return helpers.dump()<left><c-r>=Eatchar('\s')<cr>
 
-" search for visually selected text
-vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>N
-
-" reload django apps
-nnoremap <F5> :silent !touch config/wsgi.py<cr>
-
-vnoremap <F9> g<C-g>
+iab icd ### <c-r>=strftime('%Y-%m-%d')<cr>
+iab mtn meditation
