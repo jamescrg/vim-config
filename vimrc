@@ -48,6 +48,8 @@ Plug 'maralla/completor.vim'
 " code validation
 Plug 'maralla/validator.vim'
 
+" python folding
+Plug 'kalekundert/vim-coiled-snake'
 
 " ---------------------------------------
 " prose
