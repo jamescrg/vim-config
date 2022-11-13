@@ -148,9 +148,7 @@ autocmd BufRead,BufNewFile *.html,*.css setlocal tabstop=2 shiftwidth=2 softtabs
 autocmd BufRead,BufNewFile *.html set filetype=htmldjango
 
 " markdown mode
-let g:vim_markdown_folding_level = 99
 let g:vim_markdown_toc_autofit = 1
-autocmd BufRead,BufNewFile *.mkd normal zR
 autocmd BufRead,BufNewFile *.mkd setlocal wrap
 autocmd BufRead,BufNewFile *.mkd setlocal spell
 
