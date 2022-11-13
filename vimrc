@@ -69,7 +69,6 @@ call plug#end()
 
 syntax enable
 
-
 " ---------------------------
 " seoul256 light
 " ---------------------------
@@ -137,13 +136,15 @@ let g:auto_save = 1
 let g:auto_save_in_insert_mode = 0
 
 " tabs
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set expandtab
+set expandtab       "inserts spaces when tab key is pressed
+set tabstop=4       "sets for spaces for tabs
+set shiftwidth=4    "sets number of spaces to insert/remove using indentation commands
+set softtabstop=4   "number of spaces removed by backspace key
 set autoindent
-set shiftround
+filetype plugin indent on
+set shiftround      " use multiple of shiftwidth when indenting with '<' and '>'
 set comments=fb:-,fb:*
+
 
 " html mode
 autocmd BufRead,BufNewFile *.html,*.css setlocal tabstop=2 shiftwidth=2 softtabstop=2
