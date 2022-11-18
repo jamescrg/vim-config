@@ -51,6 +51,13 @@ Plug 'maralla/validator.vim'
 " python folding
 Plug 'kalekundert/vim-coiled-snake'
 
+" highlight matching html tags
+Plug 'valloric/MatchTagAlways'
+
+" auto close html tags
+Plug 'alvan/vim-closetag'
+
+
 " ---------------------------------------
 " prose
 " ---------------------------------------
@@ -69,13 +76,14 @@ call plug#end()
 
 syntax enable
 
+
 " ---------------------------
 " seoul256 light
 " ---------------------------
 "   Range:   252 (darkest) ~ 256 (lightest)
 "   Default: 253
 " ---------------------------
-let g:seoul256_background = 254
+let g:seoul256_background = 256
 let g:airline_theme='zenburn'
 set background=light
 colorscheme seoul256-light
@@ -119,9 +127,10 @@ set mouse=a
 set noswapfile
 
 " search
+" set ignorecase
 set smartcase
 set incsearch
-set hlsearch
+" set hlsearch
 
 " open splits on the right and bottom
 set splitright
@@ -145,7 +154,6 @@ filetype plugin indent on
 set shiftround      " use multiple of shiftwidth when indenting with '<' and '>'
 set comments=fb:-,fb:*
 
-
 " html mode
 autocmd BufRead,BufNewFile *.html,*.css setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd BufRead,BufNewFile *.html set filetype=htmldjango
@@ -154,6 +162,7 @@ autocmd BufRead,BufNewFile *.html set filetype=htmldjango
 let g:vim_markdown_toc_autofit = 1
 autocmd BufRead,BufNewFile *.mkd setlocal wrap
 autocmd BufRead,BufNewFile *.mkd setlocal spell
+autocmd BufRead,BufNewFile *.mkd setlocal nonumber
 
 " backspace
 set backspace=indent,eol,start
@@ -167,6 +176,7 @@ set undodir=~/.vim/undodir
 
 set wildignore+=tags,.git/**
 set wildignore+=**/migrations/**,**/__pycache__/**
+" set wildignore+=**/__pycache__/**
 set wildignore+=static/bootstrap-3.3.7/**,static/images/**
 set wildignore+=static/admin/**
 
@@ -190,6 +200,7 @@ if has("mouse_sgr")
 else
     set ttymouse=xterm2
 end
+
 
 " ----------------------------------------------------------------------------
 " Appearance
@@ -228,13 +239,19 @@ inoremap jk <esc>
 " j and k by lines on screen
 nnoremap j gj
 nnoremap k gk
-inoremap <down> <c-o>gj
-inoremap <up> <c-o>gk
+nnoremap 0 g0
+nnoremap $ g$
 vnoremap j gj
 vnoremap k gk
 
-" easy kill buffer
+" easy scrolling
+nnoremap <cr> <C-d>
+nnoremap U <C-u>
+
+" easy exits
 nnoremap <S-k> :bd<cr>
+nnoremap <C-d> ZZ
+nnoremap <S-q> :q!<cr>
 
 " window navigation
 nnoremap <tab> <C-w>w
@@ -247,7 +264,8 @@ nnoremap [q :cprevious<cr>zz
 nnoremap ]q :cnext<cr>zz
 
 " search highlighting
-noremap <cr> :noh<cr>
+" noremap <cr> :noh<cr>
+nnoremap <leader>h :set hlsearch!<cr>
 
 " fzf searches
 nnoremap <leader>f :FZF<cr>
@@ -275,6 +293,7 @@ vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>N
 
 " reload django apps
 nnoremap <F5> :silent !touch config/wsgi.py<cr>
+
 
 " ----------------------------------------------------------------------------
 " Text Insertion
