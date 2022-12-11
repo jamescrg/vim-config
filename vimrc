@@ -24,6 +24,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-surround'
 
 
 " ---------------------------------------
@@ -83,7 +84,7 @@ syntax enable
 "   Range:   252 (darkest) ~ 256 (lightest)
 "   Default: 253
 " ---------------------------
-let g:seoul256_background = 256
+let g:seoul256_background = 255
 let g:airline_theme='zenburn'
 set background=light
 colorscheme seoul256-light
@@ -119,6 +120,7 @@ let g:validator_css_checkers = ['csslint']
 " ----------------------------------------------------------------------------
 " Behavior
 " ----------------------------------------------------------------------------
+filetype plugin on
 
 " enable mouse usage
 set mouse=a
@@ -152,17 +154,20 @@ set softtabstop=4   "number of spaces removed by backspace key
 set autoindent
 filetype plugin indent on
 set shiftround      " use multiple of shiftwidth when indenting with '<' and '>'
-set comments=fb:-,fb:*
 
 " html mode
 autocmd BufRead,BufNewFile *.html,*.css setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd BufRead,BufNewFile *.html set filetype=htmldjango
+autocmd BufRead,BufNewFile *.html set foldmethod=indent
 
 " markdown mode
 let g:vim_markdown_toc_autofit = 1
 autocmd BufRead,BufNewFile *.mkd setlocal wrap
 autocmd BufRead,BufNewFile *.mkd setlocal spell
 autocmd BufRead,BufNewFile *.mkd setlocal nonumber
+autocmd BufRead,BufNewFile *.mkd setlocal breakindent
+autocmd BufRead,BufNewFile *outline.mkd setlocal briopt=shift:2
+
 
 " backspace
 set backspace=indent,eol,start
@@ -245,18 +250,18 @@ vnoremap j gj
 vnoremap k gk
 
 " easy scrolling
-nnoremap <cr> <C-d>
+nnoremap M <C-d>
 nnoremap U <C-u>
 
 " easy exits
 nnoremap <S-k> :bd<cr>
-nnoremap <C-d> ZZ
-nnoremap <S-q> :q!<cr>
+nnoremap <C-d> :q!<cr>
 
 " window navigation
 nnoremap <tab> <C-w>w
 nnoremap <S-tab> <C-w>W
 nnoremap <C-p> <C-i>
+nnoremap <leader>v :vsp<cr>
 
 " quickfix navigation
 nnoremap <leader>c :copen 30<cr>
@@ -312,3 +317,4 @@ iab dd import config.helpers as helpers<cr>return helpers.dump()<left><c-r>=Eatc
 
 iab icd ### <c-r>=strftime('%Y-%m-%d')<cr>
 iab mtn meditation
+
