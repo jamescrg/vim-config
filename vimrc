@@ -37,6 +37,9 @@ Plug 'vim-scripts/vim-auto-save'
 " comment bindings
 Plug 'tpope/vim-commentary'
 
+" covert camel case to snake case etc.
+Plug 'tpope/vim-abolish'
+
 " auto update tags file
 Plug 'ludovicchabant/vim-gutentags'
 
@@ -303,6 +306,8 @@ nnoremap <F5> :silent !touch config/wsgi.py<cr>
 " ----------------------------------------------------------------------------
 " Text Insertion
 " ----------------------------------------------------------------------------
+
+:nnoremap <leader>p Obreakpoint()<Esc>
 
 " insert text
 func Eatchar(pat)
