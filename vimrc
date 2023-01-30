@@ -13,7 +13,6 @@ Plug 'sainnhe/everforest'
 Plug 'altercation/vim-colors-solarized'
 Plug 'morhetz/gruvbox'
 Plug 'sainnhe/edge'
-Plug 'cseelus/vim-colors-lucid'
 
 
 " ---------------------------------------
@@ -60,6 +59,10 @@ Plug 'valloric/MatchTagAlways'
 
 " auto close html tags
 Plug 'alvan/vim-closetag'
+
+" auto sort python imports
+Plug 'fisadev/vim-isort'
+
 
 
 " ---------------------------------------
@@ -123,6 +126,7 @@ let g:validator_css_checkers = ['csslint']
 " ----------------------------------------------------------------------------
 " Behavior
 " ----------------------------------------------------------------------------
+"
 filetype plugin on
 
 " enable mouse usage
@@ -256,6 +260,13 @@ vnoremap k gk
 nnoremap M <C-d>
 nnoremap U <C-u>
 
+" delete a word in insert mode
+inoremap <C-b> <C-w>
+
+" tab and untab in insert mode
+inoremap <C-n> <C-t>
+inoremap <C-b> <C-d>
+
 " easy exits
 nnoremap <S-k> :bd<cr>
 nnoremap <C-d> :q!<cr>
@@ -273,7 +284,7 @@ nnoremap ]q :cnext<cr>zz
 
 " search highlighting
 " noremap <cr> :noh<cr>
-nnoremap <leader>h :set hlsearch!<cr>
+nnoremap <leader><space> :set hlsearch!<cr>
 
 " fzf searches
 nnoremap <leader>f :FZF<cr>
@@ -299,15 +310,12 @@ nnoremap <leader>et :e ~/.tmux.conf<cr>
 " search for visually selected text
 vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>N
 
-" reload django apps
-nnoremap <F5> :silent !touch config/wsgi.py<cr>
-
 
 " ----------------------------------------------------------------------------
 " Text Insertion
 " ----------------------------------------------------------------------------
 
-:nnoremap <leader>p Obreakpoint()<Esc>
+:nnoremap <leader>p obreakpoint()<Esc>
 
 " insert text
 func Eatchar(pat)
@@ -315,11 +323,17 @@ func Eatchar(pat)
     return (c =~ a:pat) ? '' : c
 endfunc
 
+iab icd ### <c-r>=strftime('%Y-%m-%d')<cr>
 iab ppr from pprint import pprint<cr>pprint()<left><c-r>=Eatchar('\s')<cr>
 iab pr print()<left><c-r>=Eatchar('\s')<cr>
+iab br breakpoint()<c-r>=Eatchar('\s')<cr>
 iab cl console.log();<left><left><c-r>=Eatchar('\s')<cr>
 iab dd import config.helpers as helpers<cr>return helpers.dump()<left><c-r>=Eatchar('\s')<cr>
+iab docs """<cr><cr>Args:<cr>    id (int):<cr><bs><cr>Returns:<cr><cr>Notes:<cr><cr>"""<up><up><up><up><up><up><up><up><up><c-r>=Eatchar('\s')<cr>
+iab css /*------------------------------------------------<cr><cr>------------------------------------------------*/
 
-iab icd ### <c-r>=strftime('%Y-%m-%d')<cr>
-iab mtn meditation
+
+" save as root
+command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+
 

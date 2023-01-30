@@ -6,6 +6,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'junegunn/seoul256.vim'
 Plug 'tpope/vim-vinegar'
+Plug 'SirVer/ultisnips'
 
 call plug#end()
 
@@ -48,9 +49,14 @@ nnoremap <leader>ev :e ~/.vim/essential.vim<cr>
 
 " easy exits
 nnoremap <S-k> :bd<cr>
-nnoremap <C-d> :q!<cr>
+nnoremap <C-d> :wq!<cr>
 
 " window navigation
 nnoremap <tab> <C-w>w
 nnoremap <S-tab> <C-w>W
 nnoremap <C-p> <C-i>
+
+
+let g:UltiSnipsExpandTrigger="<c-y>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"

@@ -1,12 +1,34 @@
-snippet p "print"
+snippet pr "print"
 print($1)
 endsnippet
+
 
 snippet pp "print"
 pprint($1)
 endsnippet
 
-snippet dd "dump"
-import config.helpers as helpers
-return helpers.dump($1)
+
+snippet ipp "import print"
+import pprint; pprint($1)
 endsnippet
+
+
+snippet br "breakpoint"
+breakpoint()
+endsnippet
+
+
+snippet "" "docstring"
+"""$1.
+
+Args:
+	id (int):
+
+Returns:
+
+Notes:
+
+"""
+
+endsnippet
+
