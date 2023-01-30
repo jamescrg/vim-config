@@ -64,7 +64,6 @@ Plug 'alvan/vim-closetag'
 Plug 'fisadev/vim-isort'
 
 
-
 " ---------------------------------------
 " prose
 " ---------------------------------------
@@ -121,6 +120,15 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 
 let g:validator_python_checkers = ['flake8']
 let g:validator_css_checkers = ['csslint']
+
+
+" ----------------------------------------------------------------------------
+" Snippet Triggers
+" ----------------------------------------------------------------------------
+
+let g:UltiSnipsExpandTrigger="<c-n>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 
 " ----------------------------------------------------------------------------
@@ -311,6 +319,7 @@ nnoremap <leader>et :e ~/.tmux.conf<cr>
 vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>N
 
 
+
 " ----------------------------------------------------------------------------
 " Text Insertion
 " ----------------------------------------------------------------------------
@@ -332,8 +341,5 @@ iab dd import config.helpers as helpers<cr>return helpers.dump()<left><c-r>=Eatc
 iab docs """<cr><cr>Args:<cr>    id (int):<cr><bs><cr>Returns:<cr><cr>Notes:<cr><cr>"""<up><up><up><up><up><up><up><up><up><c-r>=Eatchar('\s')<cr>
 iab css /*------------------------------------------------<cr><cr>------------------------------------------------*/
 
-
 " save as root
 command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
-
-
