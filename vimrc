@@ -23,7 +23,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-vinegar'
-Plug 'tpope/vim-surround'
 
 
 " ---------------------------------------
@@ -35,6 +34,15 @@ Plug 'vim-scripts/vim-auto-save'
 
 " comment bindings
 Plug 'tpope/vim-commentary'
+
+" change brackets, parents, quotes
+Plug 'tpope/vim-surround'
+
+" repeat plugin actions
+Plug 'tpope/vim-repeat'
+
+" repeat plugin actions
+Plug 'qpkorr/vim-bufkill'
 
 " covert camel case to snake case etc.
 Plug 'tpope/vim-abolish'
@@ -276,7 +284,7 @@ inoremap <C-n> <C-t>
 inoremap <C-b> <C-d>
 
 " easy exits
-nnoremap <S-k> :bd<cr>
+nnoremap <S-k> :BD<cr>
 nnoremap <C-d> :q!<cr>
 
 " window navigation
