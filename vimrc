@@ -29,6 +29,9 @@ Plug 'tpope/vim-vinegar'
 " behavior / tools
 " ---------------------------------------
 
+" vim sneak
+Plug 'justinmk/vim-sneak'
+
 "  auto save
 Plug 'vim-scripts/vim-auto-save'
 
@@ -155,7 +158,7 @@ set noswapfile
 " set ignorecase
 set smartcase
 set incsearch
-" set hlsearch
+set hlsearch
 
 " open splits on the right and bottom
 set splitright
