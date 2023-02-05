@@ -44,9 +44,6 @@ Plug 'tpope/vim-surround'
 " repeat plugin actions
 Plug 'tpope/vim-repeat'
 
-" repeat plugin actions
-Plug 'qpkorr/vim-bufkill'
-
 " covert camel case to snake case etc.
 Plug 'tpope/vim-abolish'
 
@@ -329,6 +326,8 @@ nnoremap <leader>et :e ~/.tmux.conf<cr>
 " search for visually selected text
 vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>N
 
+" reload django apps
+nnoremap <F5> :silent !touch config/wsgi.py<cr>
 
 
 " ----------------------------------------------------------------------------
@@ -346,11 +345,13 @@ endfunc
 iab icd ### <c-r>=strftime('%Y-%m-%d')<cr>
 iab ppr from pprint import pprint<cr>pprint()<left><c-r>=Eatchar('\s')<cr>
 iab pr print()<left><c-r>=Eatchar('\s')<cr>
-iab br breakpoint()<c-r>=Eatchar('\s')<cr>
 iab cl console.log();<left><left><c-r>=Eatchar('\s')<cr>
 iab dd import config.helpers as helpers<cr>return helpers.dump()<left><c-r>=Eatchar('\s')<cr>
 iab docs """<cr><cr>Args:<cr>    id (int):<cr><bs><cr>Returns:<cr><cr>Notes:<cr><cr>"""<up><up><up><up><up><up><up><up><up><c-r>=Eatchar('\s')<cr>
-iab css /*------------------------------------------------<cr><cr>------------------------------------------------*/
+iab css /*------------------------------------------------<cr><cr>------------------------------------------------*/<up>
 
 " save as root
 command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+
+" reload current application server
+" nnoremp <F5> :silent !/home/james/app_reload.py<cr>
