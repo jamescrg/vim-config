@@ -102,6 +102,29 @@ let g:airline_theme='zenburn'
 set background=light
 colorscheme seoul256-light
 
+" ---------------------------
+" everforest
+" ---------------------------
+" if has('termguicolors')
+"     set termguicolors
+" endif
+" if exists('+termguicolors')
+"   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+"   set termguicolors
+" endif
+" set background=dark
+" let g:airline_theme='everforest'
+" let g:everforest_background = 'soft'
+" let g:everforest_better_performance = 1
+" colorscheme everforest
+
+" ---------------------------
+" solarized light
+" ---------------------------
+" set background=light
+" let g:airline_theme='solarized'
+" colorscheme solarized
 
 " ----------------------------------------------------------------------------
 " Airline
@@ -277,14 +300,14 @@ nnoremap M <C-d>
 nnoremap U <C-u>
 
 " delete a word in insert mode
-inoremap <C-b> <C-w>
+inoremap <C-h> <C-w>
 
 " tab and untab in insert mode
 inoremap <C-n> <C-t>
 inoremap <C-b> <C-d>
 
 " easy exits
-nnoremap <S-k> :BD<cr>
+nnoremap <S-k> :bd<cr>
 nnoremap <C-d> :q!<cr>
 
 " window navigation
@@ -352,6 +375,3 @@ iab css /*------------------------------------------------<cr><cr>--------------
 
 " save as root
 command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
-
-" reload current application server
-" nnoremp <F5> :silent !/home/james/app_reload.py<cr>
