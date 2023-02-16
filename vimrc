@@ -300,11 +300,11 @@ nnoremap M <C-d>
 nnoremap U <C-u>
 
 " delete a word in insert mode
-inoremap <C-h> <C-w>
+inoremap <C-k> <C-w>
 
 " tab and untab in insert mode
-inoremap <C-n> <C-t>
-inoremap <C-b> <C-d>
+inoremap <C-l> <C-t>
+inoremap <C-h> <C-d>
 
 " easy exits
 nnoremap <S-k> :bd<cr>
@@ -345,6 +345,10 @@ nnoremap <leader>ev :e ~/.vim/vimrc<cr>
 nnoremap <leader>so :so %<cr>
 nnoremap <leader>eb :e ~/.bashrc<cr>
 nnoremap <leader>et :e ~/.tmux.conf<cr>
+nnoremap <leader>eh :e ~/w/dev/hints.mkd<cr>
+
+"easily view log files
+nnoremap <leader>l :e /var/log/gunicorn<cr>
 
 " search for visually selected text
 vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>N
@@ -352,12 +356,16 @@ vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>N
 " reload django apps
 nnoremap <F5> :silent !touch config/wsgi.py<cr>
 
+" save as root
+command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+
+" insert a breakpoint
+nnoremap <leader>p obreakpoint()<Esc>
 
 " ----------------------------------------------------------------------------
 " Text Insertion
 " ----------------------------------------------------------------------------
 
-:nnoremap <leader>p obreakpoint()<Esc>
 
 " insert text
 func Eatchar(pat)
@@ -365,13 +373,29 @@ func Eatchar(pat)
     return (c =~ a:pat) ? '' : c
 endfunc
 
+" current date
 iab icd ### <c-r>=strftime('%Y-%m-%d')<cr>
-iab ppr from pprint import pprint<cr>pprint()<left><c-r>=Eatchar('\s')<cr>
-iab pr print()<left><c-r>=Eatchar('\s')<cr>
-iab cl console.log();<left><left><c-r>=Eatchar('\s')<cr>
-iab dd import config.helpers as helpers<cr>return helpers.dump()<left><c-r>=Eatchar('\s')<cr>
-iab docs """<cr><cr>Args:<cr>    id (int):<cr><bs><cr>Returns:<cr><cr>Notes:<cr><cr>"""<up><up><up><up><up><up><up><up><up><c-r>=Eatchar('\s')<cr>
-iab css /*------------------------------------------------<cr><cr>------------------------------------------------*/<up>
 
-" save as root
-command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+" print
+iab pr print()<left><c-r>=Eatchar('\s')<cr>
+
+" pprint
+iab ppr from pprint import pprint<cr>pprint()<left><c-r>=Eatchar('\s')<cr>
+
+" python logging
+iab llg import logging<cr>logger = logging.getLogger(__name__)<cr>logger.debug()<left><c-r>=Eatchar('\s')<cr>
+
+" javascript console log
+iab cl console.log();<left><left><c-r>=Eatchar('\s')<cr>
+"
+" breakpoint
+iab br breakpoint()<esc>
+
+" dump django objects to browser
+iab dd import config.helpers as helpers<cr>return helpers.dump()<left><c-r>=Eatchar('\s')<cr>
+
+" python dosctring
+iab pycom """<cr><cr>Args:<cr>    id (int):<cr><bs><cr>Returns:<cr><cr>Notes:<cr><cr>"""<up><up><up><up><up><up><up><up><up><c-r>=Eatchar('\s')<cr>
+
+" css section
+iab csscom /*------------------------------------------------<cr><cr>------------------------------------------------*/<up>
