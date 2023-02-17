@@ -153,14 +153,6 @@ let g:validator_python_checkers = ['flake8']
 let g:validator_css_checkers = ['csslint']
 
 
-" ----------------------------------------------------------------------------
-" Snippet Triggers
-" ----------------------------------------------------------------------------
-
-let g:UltiSnipsExpandTrigger="<c-n>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
 
 " ----------------------------------------------------------------------------
 " Behavior
@@ -212,7 +204,7 @@ autocmd BufRead,BufNewFile *.mkd setlocal wrap
 autocmd BufRead,BufNewFile *.mkd setlocal spell
 autocmd BufRead,BufNewFile *.mkd setlocal nonumber
 autocmd BufRead,BufNewFile *.mkd setlocal breakindent
-autocmd BufRead,BufNewFile *outline.mkd setlocal briopt=shift:2
+autocmd BufRead,BufNewFile *outline.mkd setlocal briopt=shift:2 " indent bullets
 
 
 " backspace

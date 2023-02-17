@@ -1,5 +1,5 @@
+autoload/
+plugged/
+undodir/
 .netrwhist
-/tags
-/plugged
-/undodir
-/spell
+tags
