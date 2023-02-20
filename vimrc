@@ -354,6 +354,9 @@ command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
 " insert a breakpoint
 nnoremap <leader>p obreakpoint()<Esc>
 
+" view a word count
+xnoremap <leader>w g<C-g>4gs
+
 " ----------------------------------------------------------------------------
 " Text Insertion
 " ----------------------------------------------------------------------------
@@ -366,7 +369,7 @@ func Eatchar(pat)
 endfunc
 
 " current date
-iab icd ### <c-r>=strftime('%Y-%m-%d')<cr>
+iab icd ## <c-r>=strftime('%Y-%m-%d')<cr>
 
 " print
 iab pr print()<left><c-r>=Eatchar('\s')<cr>
