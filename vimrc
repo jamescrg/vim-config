@@ -97,7 +97,7 @@ syntax enable
 "   Range:   252 (darkest) ~ 256 (lightest)
 "   Default: 253
 " ---------------------------
-let g:seoul256_background = 255
+let g:seoul256_background = 254
 let g:airline_theme='zenburn'
 set background=light
 colorscheme seoul256-light
@@ -200,11 +200,12 @@ autocmd BufRead,BufNewFile *.html set foldmethod=indent
 
 " markdown mode
 let g:vim_markdown_toc_autofit = 1
-autocmd BufRead,BufNewFile *.mkd setlocal wrap
-autocmd BufRead,BufNewFile *.mkd setlocal spell
-autocmd BufRead,BufNewFile *.mkd setlocal nonumber
-autocmd BufRead,BufNewFile *.mkd setlocal breakindent
-autocmd BufRead,BufNewFile *outline.mkd setlocal briopt=shift:2 " indent bullets
+autocmd BufRead,BufNewFile *.mkd,*.md setlocal wrap spell nonumber breakindent
+autocmd BufRead,BufNewFile *outline.md setlocal briopt=shift:2 " indent bullets
+autocmd BufRead,BufNewFile *outline.md setlocal tabstop=2 shiftwidth=2 softtabstop=2
+" autocmd BufRead,BufNewFile *.outline.md set foldmethod=indent
+" let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_conceal = 1
 
 
 " backspace
@@ -280,12 +281,12 @@ inoremap jj <esc>
 inoremap jk <esc>
 
 " j and k by lines on screen
-nnoremap j gj
-nnoremap k gk
-nnoremap 0 g0
-nnoremap $ g$
-vnoremap j gj
-vnoremap k gk
+" nnoremap j gj
+" nnoremap k gk
+" nnoremap 0 g0
+" nnoremap $ g$
+" vnoremap j gj
+" vnoremap k gk
 
 " easy scrolling
 nnoremap M <C-d>
@@ -314,8 +315,7 @@ nnoremap [q :cprevious<cr>zz
 nnoremap ]q :cnext<cr>zz
 
 " search highlighting
-" noremap <cr> :noh<cr>
-nnoremap <leader><space> :set hlsearch!<cr>
+nnoremap <leader>h :set hlsearch!<cr>
 
 " fzf searches
 nnoremap <leader>f :FZF<cr>
@@ -352,6 +352,7 @@ nnoremap <F5> :silent !touch config/wsgi.py<cr>
 command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
 
 " insert a breakpoint
+nnoremap <leader>P Obreakpoint()<Esc>
 nnoremap <leader>p obreakpoint()<Esc>
 
 " view a word count
@@ -383,9 +384,6 @@ iab llg import logging<cr>logger = logging.getLogger(__name__)<cr>logger.debug()
 " javascript console log
 iab cl console.log();<left><left><c-r>=Eatchar('\s')<cr>
 "
-" breakpoint
-iab br breakpoint()<esc>
-
 " dump django objects to browser
 iab dd import config.helpers as helpers<cr>return helpers.dump()<left><c-r>=Eatchar('\s')<cr>
 
