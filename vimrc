@@ -88,8 +88,13 @@ call plug#end()
 " Colorscheme
 " ----------------------------------------------------------------------------
 
-syntax enable
-
+" ---------------------------
+" Gruvbox
+" ---------------------------
+" syntax enable
+" set background=dark
+" let g:gruvbox_contrast_dark='soft'
+" colorscheme gruvbox
 
 " ---------------------------
 " seoul256 light
@@ -97,7 +102,7 @@ syntax enable
 "   Range:   252 (darkest) ~ 256 (lightest)
 "   Default: 253
 " ---------------------------
-let g:seoul256_background = 254
+let g:seoul256_background = 255
 let g:airline_theme='zenburn'
 set background=light
 colorscheme seoul256-light
@@ -105,9 +110,6 @@ colorscheme seoul256-light
 " ---------------------------
 " everforest
 " ---------------------------
-" if has('termguicolors')
-"     set termguicolors
-" endif
 " if exists('+termguicolors')
 "   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 "   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -173,7 +175,7 @@ set incsearch
 set hlsearch
 
 " open splits on the right and bottom
-set splitright
+" set splitright
 set splitbelow
 
 "# fold behavior
@@ -190,21 +192,17 @@ set tabstop=4       "sets for spaces for tabs
 set shiftwidth=4    "sets number of spaces to insert/remove using indentation commands
 set softtabstop=4   "number of spaces removed by backspace key
 set autoindent
-filetype plugin indent on
 set shiftround      " use multiple of shiftwidth when indenting with '<' and '>'
 
 " html mode
 autocmd BufRead,BufNewFile *.html,*.css setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd BufRead,BufNewFile *.html set filetype=htmldjango
-autocmd BufRead,BufNewFile *.html set foldmethod=indent
 
 " markdown mode
 let g:vim_markdown_toc_autofit = 1
 autocmd BufRead,BufNewFile *.mkd,*.md setlocal wrap spell nonumber breakindent
-autocmd BufRead,BufNewFile *outline.md setlocal briopt=shift:2 " indent bullets
+autocmd BufRead,BufNewFile *outline.md setlocal briopt=shift:2 "indent bullets
 autocmd BufRead,BufNewFile *outline.md setlocal tabstop=2 shiftwidth=2 softtabstop=2
-" autocmd BufRead,BufNewFile *.outline.md set foldmethod=indent
-" let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_conceal = 1
 
 
@@ -219,8 +217,8 @@ set undofile
 set undodir=~/.vim/undodir
 
 set wildignore+=tags,.git/**
-set wildignore+=**/migrations/**,**/__pycache__/**
-" set wildignore+=**/__pycache__/**
+set wildignore+=**/migrations/**
+set wildignore+=**/__pycache__/**
 set wildignore+=static/bootstrap-3.3.7/**,static/images/**
 set wildignore+=static/admin/**
 
@@ -280,17 +278,12 @@ let mapleader = " "
 inoremap jj <esc>
 inoremap jk <esc>
 
-" j and k by lines on screen
-" nnoremap j gj
-" nnoremap k gk
-" nnoremap 0 g0
-" nnoremap $ g$
-" vnoremap j gj
-" vnoremap k gk
-
-" easy scrolling
-nnoremap M <C-d>
-nnoremap U <C-u>
+" prose navigation
+map j gj
+map k gk
+inoremap . .<C-g>u
+inoremap ! !<C-g>u
+inoremap ? ?<C-g>u
 
 " delete a word in insert mode
 inoremap <C-k> <C-w>
@@ -370,7 +363,7 @@ func Eatchar(pat)
 endfunc
 
 " current date
-iab icd ## <c-r>=strftime('%Y-%m-%d')<cr>
+iab icd @<c-r>=strftime('%Y-%m-%d')<cr>
 
 " print
 iab pr print()<left><c-r>=Eatchar('\s')<cr>
@@ -392,3 +385,28 @@ iab pycom """<cr><cr>Args:<cr>    id (int):<cr><bs><cr>Returns:<cr><cr>Notes:<cr
 
 " css section
 iab csscom /*------------------------------------------------<cr><cr>------------------------------------------------*/<up>
+
+
+function DarkMode()
+    " ---------------------------
+    " Gruvbox
+    " ---------------------------
+    syntax enable
+    set background=dark
+    let g:gruvbox_contrast_dark='soft'
+    colorscheme gruvbox
+endfunction
+
+function LightMode()
+    " ---------------------------
+    " Seoul256 light
+    " ---------------------------
+    let g:seoul256_background = 252
+    let g:airline_theme='zenburn'
+    set background=light
+    colorscheme seoul256-light
+endfunction
+
+nnoremap<leader>d :call DarkMode()<cr>
+nnoremap<leader>l :call LightMode()<cr>
+
