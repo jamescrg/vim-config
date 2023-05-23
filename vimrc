@@ -91,10 +91,10 @@ call plug#end()
 " ---------------------------
 " Gruvbox
 " ---------------------------
-" syntax enable
-" set background=dark
-" let g:gruvbox_contrast_dark='soft'
-" colorscheme gruvbox
+syntax enable
+set background=dark
+let g:gruvbox_contrast_dark='soft'
+colorscheme gruvbox
 
 " ---------------------------
 " seoul256 light
@@ -102,10 +102,10 @@ call plug#end()
 "   Range:   252 (darkest) ~ 256 (lightest)
 "   Default: 253
 " ---------------------------
-let g:seoul256_background = 255
-let g:airline_theme='zenburn'
-set background=light
-colorscheme seoul256-light
+" let g:seoul256_background = 255
+" let g:airline_theme='zenburn'
+" set background=light
+" colorscheme seoul256-light
 
 " ---------------------------
 " everforest
@@ -201,8 +201,8 @@ autocmd BufRead,BufNewFile *.html set filetype=htmldjango
 " markdown mode
 let g:vim_markdown_toc_autofit = 1
 autocmd BufRead,BufNewFile *.mkd,*.md setlocal wrap spell nonumber breakindent
-autocmd BufRead,BufNewFile *outline.md setlocal briopt=shift:2 "indent bullets
-autocmd BufRead,BufNewFile *outline.md setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd BufRead,BufNewFile *.ol.md setlocal briopt=shift:2 "indent bullets
+autocmd BufRead,BufNewFile *.ol.md setlocal tabstop=2 shiftwidth=2 softtabstop=2
 let g:vim_markdown_conceal = 1
 
 
@@ -391,9 +391,8 @@ function DarkMode()
     " ---------------------------
     " Gruvbox
     " ---------------------------
-    syntax enable
-    set background=dark
     let g:gruvbox_contrast_dark='soft'
+    set background=dark
     colorscheme gruvbox
 endfunction
 
@@ -409,4 +408,3 @@ endfunction
 
 nnoremap<leader>d :call DarkMode()<cr>
 nnoremap<leader>l :call LightMode()<cr>
-
