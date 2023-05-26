@@ -91,10 +91,10 @@ call plug#end()
 " ---------------------------
 " Gruvbox
 " ---------------------------
-syntax enable
-set background=dark
-let g:gruvbox_contrast_dark='soft'
-colorscheme gruvbox
+" syntax enable
+" set background=dark
+" let g:gruvbox_contrast_dark='soft'
+" colorscheme gruvbox
 
 " ---------------------------
 " seoul256 light
@@ -102,10 +102,10 @@ colorscheme gruvbox
 "   Range:   252 (darkest) ~ 256 (lightest)
 "   Default: 253
 " ---------------------------
-" let g:seoul256_background = 255
-" let g:airline_theme='zenburn'
-" set background=light
-" colorscheme seoul256-light
+let g:seoul256_background = 253
+let g:airline_theme='zenburn'
+set background=light
+colorscheme seoul256-light
 
 " ---------------------------
 " everforest
@@ -203,8 +203,7 @@ let g:vim_markdown_toc_autofit = 1
 autocmd BufRead,BufNewFile *.mkd,*.md setlocal wrap spell nonumber breakindent
 autocmd BufRead,BufNewFile *.ol.md setlocal briopt=shift:2 "indent bullets
 autocmd BufRead,BufNewFile *.ol.md setlocal tabstop=2 shiftwidth=2 softtabstop=2
-let g:vim_markdown_conceal = 1
-
+let g:vim_markdown_conceal = 0
 
 " backspace
 set backspace=indent,eol,start
@@ -316,7 +315,7 @@ nnoremap <nowait><leader>b :Buffers<cr>
 
 " writing
 nnoremap <leader>g :Goyo<cr>
-nnoremap <leader>t :Toc<cr>
+nnoremap <leader>t :only<cr>:Toc<cr><C-w>w
 nnoremap <leader>d :ThesaurusQueryLookupCurrentWord<cr>
 
 " search for word under cursor, including first word
