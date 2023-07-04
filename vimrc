@@ -102,24 +102,24 @@ call plug#end()
 "   Range:   252 (darkest) ~ 256 (lightest)
 "   Default: 253
 " ---------------------------
-" let g:seoul256_background = 253
-" let g:airline_theme='zenburn'
-" set background=light
-" colorscheme seoul256-light
+let g:seoul256_background = 253
+let g:airline_theme='zenburn'
+set background=light
+colorscheme seoul256-light
 
 " ---------------------------
 " everforest
 " ---------------------------
-if exists('+termguicolors')
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
-endif
-set background=dark
-let g:airline_theme='everforest'
-let g:everforest_background = 'soft'
-let g:everforest_better_performance = 1
-colorscheme everforest
+" if exists('+termguicolors')
+"   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+"   set termguicolors
+" endif
+" set background=dark
+" let g:airline_theme='everforest'
+" let g:everforest_background = 'soft'
+" let g:everforest_better_performance = 1
+" colorscheme everforest
 
 " ---------------------------
 " solarized light
