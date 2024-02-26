@@ -13,6 +13,7 @@ Plug 'sainnhe/everforest'
 Plug 'altercation/vim-colors-solarized'
 Plug 'morhetz/gruvbox'
 Plug 'sainnhe/edge'
+Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 
 
 " ---------------------------------------
@@ -66,10 +67,13 @@ Plug 'kalekundert/vim-coiled-snake'
 Plug 'valloric/MatchTagAlways'
 
 " auto close html tags
-Plug 'alvan/vim-closetag'
+" Plug 'alvan/vim-closetag'
 
 " auto sort python imports
 Plug 'fisadev/vim-isort'
+
+" auto pair closures
+Plug 'LunarWatcher/auto-pairs'
 
 
 " ---------------------------------------
@@ -89,12 +93,10 @@ call plug#end()
 " ----------------------------------------------------------------------------
 
 " ---------------------------
-" Gruvbox
+" Catpuccin
 " ---------------------------
-" syntax enable
-" set background=dark
-" let g:gruvbox_contrast_dark='soft'
-" colorscheme gruvbox
+" colorscheme catppuccin-latte
+
 
 " ---------------------------
 " seoul256 light
@@ -102,31 +104,12 @@ call plug#end()
 "   Range:   252 (darkest) ~ 256 (lightest)
 "   Default: 253
 " ---------------------------
-let g:seoul256_background = 253
+let g:seoul256_background = 255
 let g:airline_theme='zenburn'
 set background=light
 colorscheme seoul256-light
 
 " ---------------------------
-" everforest
-" ---------------------------
-" if exists('+termguicolors')
-"   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-"   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-"   set termguicolors
-" endif
-" set background=dark
-" let g:airline_theme='everforest'
-" let g:everforest_background = 'soft'
-" let g:everforest_better_performance = 1
-" colorscheme everforest
-
-" ---------------------------
-" solarized light
-" ---------------------------
-" set background=light
-" let g:airline_theme='solarized'
-" colorscheme solarized
 
 " ----------------------------------------------------------------------------
 " Airline
@@ -175,7 +158,7 @@ set incsearch
 set hlsearch
 
 " open splits on the right and bottom
-" set splitright
+set splitright
 set splitbelow
 
 "# fold behavior
@@ -197,6 +180,7 @@ set shiftround      " use multiple of shiftwidth when indenting with '<' and '>'
 " html mode
 autocmd BufRead,BufNewFile *.html,*.css setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd BufRead,BufNewFile *.html set filetype=htmldjango
+autocmd BufRead,BufNewFile *.html set foldmethod=indent
 
 " markdown mode
 let g:vim_markdown_toc_autofit = 1
@@ -295,6 +279,9 @@ inoremap <C-h> <C-d>
 nnoremap <S-k> :bd<cr>
 nnoremap <C-d> :q!<cr>
 
+" scrolling
+nnoremap <C-n> <C-d>
+
 " window navigation
 nnoremap <tab> <C-w>w
 nnoremap <S-tab> <C-w>W
@@ -310,7 +297,7 @@ nnoremap ]q :cnext<cr>zz
 nnoremap <leader>h :set hlsearch!<cr>
 
 " fzf searches
-nnoremap <leader>f :FZF<cr>
+nnoremap <leader>f :GFiles<cr>
 nnoremap <nowait><leader>b :Buffers<cr>
 
 " writing
@@ -350,10 +337,10 @@ nnoremap <leader>p obreakpoint()<Esc>
 " view a word count
 xnoremap <leader>w g<C-g>4gs
 
+
 " ----------------------------------------------------------------------------
 " Text Insertion
 " ----------------------------------------------------------------------------
-
 
 " insert text
 func Eatchar(pat)
@@ -386,28 +373,28 @@ iab pycom """<cr><cr>Args:<cr>    id (int):<cr><bs><cr>Returns:<cr><cr>Notes:<cr
 iab csscom /*------------------------------------------------<cr><cr>------------------------------------------------*/<up>
 
 
-function DarkMode()
-    if exists('+termguicolors')
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-    set termguicolors
-    endif
-    set background=dark
-    let g:airline_theme='everforest'
-    let g:everforest_background = 'soft'
-    let g:everforest_better_performance = 1
-    colorscheme everforest
-endfunction
+" function DarkMode()
+"     if exists('+termguicolors')
+"     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+"     set termguicolors
+"     endif
+"     set background=dark
+"     let g:airline_theme='everforest'
+"     let g:everforest_background = 'soft'
+"     let g:everforest_better_performance = 1
+"     colorscheme everforest
+" endfunction
 
-function LightMode()
-    " ---------------------------
-    " Seoul256 light
-    " ---------------------------
-    let g:seoul256_background = 252
-    let g:airline_theme='zenburn'
-    set background=light
-    colorscheme seoul256-light
-endfunction
+" function LightMode()
+"     " ---------------------------
+"     " Seoul256 light
+"     " ---------------------------
+"     let g:seoul256_background = 252
+"     let g:airline_theme='zenburn'
+"     set background=light
+"     colorscheme seoul256-light
+" endfunction
 
-nnoremap<leader>d :call DarkMode()<cr>
-nnoremap<leader>l :call LightMode()<cr>
+" nnoremap<leader>d :call DarkMode()<cr>
+" nnoremap<leader>l :call LightMode()<cr>
