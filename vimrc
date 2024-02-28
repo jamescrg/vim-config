@@ -9,15 +9,11 @@ call plug#begin('~/.vim/plugged')
 " color schemes
 " ---------------------------------------
 Plug 'junegunn/seoul256.vim'
-Plug 'sainnhe/everforest'
-Plug 'altercation/vim-colors-solarized'
 Plug 'morhetz/gruvbox'
-Plug 'sainnhe/edge'
-Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 
 
 " ---------------------------------------
-" interface
+" core interface improvements
 " ---------------------------------------
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -30,16 +26,13 @@ Plug 'tpope/vim-vinegar'
 " behavior / tools
 " ---------------------------------------
 
-" vim sneak
-Plug 'justinmk/vim-sneak'
-
 "  auto save
 Plug 'vim-scripts/vim-auto-save'
 
 " comment bindings
 Plug 'tpope/vim-commentary'
 
-" change brackets, parents, quotes
+" change brackets, parents, quotes, html tags
 Plug 'tpope/vim-surround'
 
 " repeat plugin actions
@@ -51,39 +44,31 @@ Plug 'tpope/vim-abolish'
 " auto update tags file
 Plug 'ludovicchabant/vim-gutentags'
 
-" run django reload script without screen blank
-Plug 'fcpg/vim-altscreen'
-
 " better autocomplete, always on
 Plug 'maralla/completor.vim'
 
 " code validation
 Plug 'maralla/validator.vim'
 
-" python folding
-Plug 'kalekundert/vim-coiled-snake'
-
 " highlight matching html tags
 Plug 'valloric/MatchTagAlways'
 
-" auto close html tags
-" Plug 'alvan/vim-closetag'
+" automatically close html tags
+" when attempting to surround something, use vim-surround
+Plug 'alvan/vim-closetag'
+
+
+" ---------------------------------------
+" python
+" ---------------------------------------
+
+" python folding
+Plug 'kalekundert/vim-coiled-snake'
 
 " auto sort python imports
 Plug 'fisadev/vim-isort'
 
-" auto pair closures
-Plug 'LunarWatcher/auto-pairs'
 
-
-" ---------------------------------------
-" prose
-" ---------------------------------------
-
-Plug 'plasticboy/vim-markdown'
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
-Plug 'ron89/thesaurus_query.vim'
 
 call plug#end()
 
@@ -91,12 +76,6 @@ call plug#end()
 " ----------------------------------------------------------------------------
 " Colorscheme
 " ----------------------------------------------------------------------------
-
-" ---------------------------
-" Catpuccin
-" ---------------------------
-" colorscheme catppuccin-latte
-
 
 " ---------------------------
 " seoul256 light
@@ -110,6 +89,13 @@ set background=light
 colorscheme seoul256-light
 
 " ---------------------------
+" gruvbox
+" ---------------------------
+" set background=dark
+" colorscheme gruvbox
+" let g:airline_theme='gruvbox'
+" let g:gruvbox_contrast_dark = 'soft'
+
 
 " ----------------------------------------------------------------------------
 " Airline
@@ -123,7 +109,7 @@ autocmd VimEnter * silent AirlineToggleWhitespace
 " ----------------------------------------------------------------------------
 
 autocmd Filetype markdown let g:completor_auto_trigger = 0
-let g:completor_python_binary = '/home/james/.local/lib/python3.8/site-packages/jedi'
+let g:completor_python_binary = '/home/james/chf/lib/python3.10/site-packages/jedi'
 
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -138,11 +124,29 @@ let g:validator_python_checkers = ['flake8']
 let g:validator_css_checkers = ['csslint']
 
 
+" ----------------------------------------------------------------------------
+" Search
+" ----------------------------------------------------------------------------
+
+" ignore case
+set ignorecase
+
+" except when an upper case character is used
+set smartcase
+
+" start searching as it is typed
+set incsearch
+
+" highlight search patterns
+set hlsearch
+
 
 " ----------------------------------------------------------------------------
 " Behavior
 " ----------------------------------------------------------------------------
-"
+
+set nocompatible
+
 filetype plugin on
 
 " enable mouse usage
@@ -151,49 +155,34 @@ set mouse=a
 " no swap files
 set noswapfile
 
-" search
-" set ignorecase
-set smartcase
-set incsearch
-set hlsearch
-
 " open splits on the right and bottom
 set splitright
 set splitbelow
 
 "# fold behavior
 set foldmethod=indent
-set foldlevel=99
+set foldlevel=1
 
 " autosave
 let g:auto_save = 1
 let g:auto_save_in_insert_mode = 0
 
 " tabs
-set expandtab       "inserts spaces when tab key is pressed
-set tabstop=4       "sets for spaces for tabs
-set shiftwidth=4    "sets number of spaces to insert/remove using indentation commands
-set softtabstop=4   "number of spaces removed by backspace key
+set expandtab       " inserts spaces when tab key is pressed
+set tabstop=4       " sets for spaces for tabs
+set softtabstop=4   " number of spaces removed by backspace key
+set shiftwidth=4    " sets number of spaces to insert/remove using indentation commands
 set autoindent
 set shiftround      " use multiple of shiftwidth when indenting with '<' and '>'
-
-" html mode
-autocmd BufRead,BufNewFile *.html,*.css setlocal tabstop=2 shiftwidth=2 softtabstop=2
-autocmd BufRead,BufNewFile *.html set filetype=htmldjango
-autocmd BufRead,BufNewFile *.html set foldmethod=indent
-
-" markdown mode
-let g:vim_markdown_toc_autofit = 1
-autocmd BufRead,BufNewFile *.mkd,*.md setlocal wrap spell nonumber breakindent
-autocmd BufRead,BufNewFile *.ol.md setlocal briopt=shift:2 "indent bullets
-autocmd BufRead,BufNewFile *.ol.md setlocal tabstop=2 shiftwidth=2 softtabstop=2
-let g:vim_markdown_conceal = 0
 
 " backspace
 set backspace=indent,eol,start
 
 " disable fzf preview window
 let g:fzf_preview_window = ''
+
+" elminiate delay in escaping out of fzf
+set ttimeoutlen=50
 
 " persistent undo history
 set undofile
@@ -208,11 +197,6 @@ set wildignore+=static/admin/**
 " hide netrw from buffer-toggle
 let g:netrw_altfile = 1
 
-" auto close pairs when on separate lines
-inoremap {<cr> {<cr>}<esc>O
-inoremap [<cr> [<cr>]<esc>O
-inoremap (<cr> (<cr>)<esc>O
-
 "prevent signs from opening another gutter
 set signcolumn=number
 
@@ -226,6 +210,11 @@ else
     set ttymouse=xterm2
 end
 
+" html mode
+autocmd BufRead,BufNewFile *.html,*.css setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd BufRead,BufNewFile *.html setlocal filetype=htmldjango
+autocmd BufRead,BufNewFile *.html setloca foldmethod=indent
+
 
 " ----------------------------------------------------------------------------
 " Appearance
@@ -233,6 +222,7 @@ end
 
 " always show line numbers
 set number
+set relativenumber
 
 "wrap lines
 set nowrap
@@ -242,12 +232,6 @@ set linebreak
 
 " show partial lines at the bottom of the screen
 set display=lastline
-
-" eliminate delay leaving insert mode
-set ttimeoutlen=50
-
-" default width value for goyo
-let g:goyo_width=100
 
 
 " ----------------------------------------------------------------------------
@@ -261,95 +245,76 @@ let mapleader = " "
 inoremap jj <esc>
 inoremap jk <esc>
 
-" prose navigation
-map j gj
-map k gk
-inoremap . .<C-g>u
-inoremap ! !<C-g>u
-inoremap ? ?<C-g>u
-
-" delete a word in insert mode
-inoremap <C-k> <C-w>
-
-" tab and untab in insert mode
-inoremap <C-l> <C-t>
-inoremap <C-h> <C-d>
-
-" easy exits
+" kill buffer
 nnoremap <S-k> :bd<cr>
+
+" exit vim
 nnoremap <C-d> :q!<cr>
 
-" scrolling
-nnoremap <C-n> <C-d>
+" pg up/down
+nnoremap <C-m> <C-d>
 
 " window navigation
 nnoremap <tab> <C-w>w
 nnoremap <S-tab> <C-w>W
-nnoremap <C-p> <C-i>
+" nnoremap <C-p> <C-i>
 nnoremap <leader>v :vsp<cr>
 
-" quickfix navigation
-nnoremap <leader>c :copen 30<cr>
-nnoremap [q :cprevious<cr>zz
-nnoremap ]q :cnext<cr>zz
-
-" search highlighting
-nnoremap <leader>h :set hlsearch!<cr>
+" clear highlighted search text until next explicit search or n/N
+" <silent> - so as to not print :noh on last line when invoked
+nnoremap <silent> <cr> :noh<cr>
 
 " fzf searches
 nnoremap <leader>f :GFiles<cr>
 nnoremap <nowait><leader>b :Buffers<cr>
 
-" writing
-nnoremap <leader>g :Goyo<cr>
-nnoremap <leader>t :only<cr>:Toc<cr><C-w>w
-nnoremap <leader>d :ThesaurusQueryLookupCurrentWord<cr>
-
 " search for word under cursor, including first word
 nnoremap * *N
 
-" easy search and replace
+" search project
 nnoremap <C-f> :vimgrep '' **/*<left><left><left><left><left><left>
+nnoremap <leader>c :copen 10<cr>
 
-" easy edits
-nnoremap <leader>ev :e ~/.vim/vimrc<cr>
-nnoremap <leader>so :so %<cr>
-nnoremap <leader>eb :e ~/.bashrc<cr>
-nnoremap <leader>et :e ~/.tmux.conf<cr>
-nnoremap <leader>eh :e ~/w/dev/hints.mkd<cr>
-
-"easily view log files
-nnoremap <leader>l :e /var/log/gunicorn<cr>
+" search/replace within file
+nnoremap <C-h> :%s//gc<left><left><left>
 
 " search for visually selected text
 vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>N
 
-" reload django apps
-nnoremap <F5> :silent !touch config/wsgi.py<cr>
+" shortcuts to edit configuation files
+nnoremap <leader>ev :e ~/.vim/vimrc<cr>
+nnoremap <leader>so :so %<cr>
+nnoremap <leader>eb :e ~/.bashrc<cr>
+nnoremap <leader>et :e ~/.tmux.conf<cr>
+
+" shortcut to view log files
+nnoremap <leader>l :e /var/log/gunicorn<cr>
 
 " save as root
 command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
 
 " insert a breakpoint
-nnoremap <leader>P Obreakpoint()<Esc>
 nnoremap <leader>p obreakpoint()<Esc>
-
-" view a word count
-xnoremap <leader>w g<C-g>4gs
 
 
 " ----------------------------------------------------------------------------
 " Text Insertion
 " ----------------------------------------------------------------------------
 
+" auto close pairs when on separate lines
+inoremap {<cr> {<cr>}<esc>O
+inoremap [<cr> [<cr>]<esc>O
+inoremap (<cr> (<cr>)<esc>O
+
+" close HTML tags when prompted
+" just press TAB after the opening tab
+inoremap ><Tab> ><Esc>F<lyt>o</<C-r>"><Esc>O<Space>
+
 " insert text
 func Eatchar(pat)
     let c = nr2char(getchar(0))
     return (c =~ a:pat) ? '' : c
 endfunc
-
-" current date
-iab icd @<c-r>=strftime('%Y-%m-%d')<cr>
 
 " print
 iab pr print()<left><c-r>=Eatchar('\s')<cr>
@@ -358,7 +323,7 @@ iab pr print()<left><c-r>=Eatchar('\s')<cr>
 iab ppr from pprint import pprint<cr>pprint()<left><c-r>=Eatchar('\s')<cr>
 
 " python logging
-iab llg import logging<cr>logger = logging.getLogger(__name__)<cr>logger.debug()<left><c-r>=Eatchar('\s')<cr>
+" iab llg import logging<cr>logger = logging.getLogger(__name__)<cr>logger.debug()<left><c-r>=Eatchar('\s')<cr>
 
 " javascript console log
 iab cl console.log();<left><left><c-r>=Eatchar('\s')<cr>
@@ -373,28 +338,27 @@ iab pycom """<cr><cr>Args:<cr>    id (int):<cr><bs><cr>Returns:<cr><cr>Notes:<cr
 iab csscom /*------------------------------------------------<cr><cr>------------------------------------------------*/<up>
 
 
-" function DarkMode()
-"     if exists('+termguicolors')
-"     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-"     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-"     set termguicolors
-"     endif
-"     set background=dark
-"     let g:airline_theme='everforest'
-"     let g:everforest_background = 'soft'
-"     let g:everforest_better_performance = 1
-"     colorscheme everforest
-" endfunction
+function DarkMode()
+    if exists('+termguicolors')
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
+    endif
+    set background=dark
+    colorscheme gruvbox
+    let g:airline_theme='gruvbox'
+    let g:gruvbox_contrast_dark = 'soft'
+endfunction
 
-" function LightMode()
-"     " ---------------------------
-"     " Seoul256 light
-"     " ---------------------------
-"     let g:seoul256_background = 252
-"     let g:airline_theme='zenburn'
-"     set background=light
-"     colorscheme seoul256-light
-" endfunction
+function LightMode()
+    " ---------------------------
+    " Seoul256 light
+    " ---------------------------
+    let g:seoul256_background = 254
+    let g:airline_theme='zenburn'
+    set background=light
+    colorscheme seoul256-light
+endfunction
 
-" nnoremap<leader>d :call DarkMode()<cr>
-" nnoremap<leader>l :call LightMode()<cr>
+nnoremap<leader>td :call DarkMode()<cr>
+nnoremap<leader>tl :call LightMode()<cr>
